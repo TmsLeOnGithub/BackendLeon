@@ -1,0 +1,21 @@
+{
+  "name": "tmsleon-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TmsLeOnGithub/BackendLeon.git"
+  },
+  "author": "Tomas Leon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TmsLeOnGithub/BackendLeon/issues"
+  },
+  "homepage": "https://github.com/TmsLeOnGithub/BackendLeon#readme"
+}
