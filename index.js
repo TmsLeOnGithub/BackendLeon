@@ -29,11 +29,11 @@ async function Run(){
     
     console.log("DeleteAll");
     
-    await contenedor.deleteAll();
+    /*await contenedor.deleteAll();
     
     const productosEliminados = await contenedor.getAll()
         console.log("Productos disponibles");
-        console.log(productosEliminados)
+        console.log(productosEliminados)*/
     
 }
 

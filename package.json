@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/TmsLeOnGithub/BackendLeon/issues"
   },
-  "homepage": "https://github.com/TmsLeOnGithub/BackendLeon#readme"
+  "homepage": "https://github.com/TmsLeOnGithub/BackendLeon#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
 }
