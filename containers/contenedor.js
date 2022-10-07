@@ -10,11 +10,12 @@ export class Contenedor {
   async save(item) {
     try {
         const items = await this.getAll();
+        console.log(item);
         item.id = items?.length === 0 ? 1 : items[items.length - 1].id + 1;
 
         items.push(item);
         await fs.promises.writeFile(this.nombreArchivo, JSON.stringify(items), { encodig: `utf-8` }) ;
-        console.log(`item ${item.titulo} guardado`)
+        return item;
     } catch (error) {
         console.log("hubo un error al intentar guardar el item")
     }
