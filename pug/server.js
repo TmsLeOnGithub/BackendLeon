@@ -1,28 +1,16 @@
 import express from "express";
-//import { fileURLToPath } from 'url';
-//import { dirname } from 'path';
-//const __filename = fileURLToPath(import.meta.url);
-//const __dirname = dirname(__filename);
+import { Contenedor } from "../containers/contenedor";
 const app = express();
 const PORT = 8080;
 
 app.set('views', './views');
 app.set('view engine', 'pug');
 
-
-//app.use(express.json());
-//app.use(express.static(__dirname + '/public'))
-
-
-/*app.get('/hello', (req, res) => {
-    res.render('hello.pug', { mensaje: 'Usando Pug Js en Express' });
-});*/
+const contenedor = new Contenedor('productos.txt');
 
 
 // URL DE PRUEBA => http://localhost:8080/datos?max=90&min=20&nivel=30&titulo=medidor
-app.get('/datos', (req, res) => {
-    const { min,nivel,max,titulo }= req.query;
-    const lista= [ {id:1, titulo:'celular', precio:46000, thumbnail:'foto no disponible' } ]
+app.get('/', (req, res) => {
     res.render('index.pug',{ min, nivel, max, titulo, lista });
     
 });

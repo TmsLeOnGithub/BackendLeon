@@ -1,11 +1,10 @@
-import express from "express";
+import { Router } from "express";
 import { Contenedor } from '../containers/contenedor.js';
 
 const contenedor = new Contenedor('productos.txt');
-const app = express();
-const PORT = 8080;
-const { Router } = express;
+
 export const productosRouter = Router();
+
 
 productosRouter.get('/', (req, res) => {
     contenedor.getAll().then(productos => {
@@ -22,7 +21,6 @@ productosRouter.get('/:id', (req, res) => {
 })
 
 productosRouter.post('/', (req, res) => {
-    console.log(req.body);
     const producto = req.body;
     contenedor.save(producto).then((item) => {
         res.status(200).send(item)
