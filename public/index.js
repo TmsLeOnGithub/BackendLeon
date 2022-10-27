@@ -1,67 +1,28 @@
-
-
-/*import express from "express";
-import { productosRouter } from "../routes/productosRouter.js";
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import { create } from 'express-handlebars';
-import { Contenedor } from "../containers/contenedor.js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const app = express();
-const PORT = 8080;
-
-app.use(express.json());
-app.use(express.urlencoded({
-    extended: true
-}));
-app.use('/api/productos', productosRouter);
-app.use(express.static(__dirname + '/public'))
-
-const hbs = create({});
-
-const contenedor = new Contenedor('productos.txt');
-
-// Agrego handlebar como view engine
-app.engine(`handlebars`, hbs.engine);
-app.set('view engine', 'handlebars');
-app.set(`views`, './views');
-
-app.get('/', (req, res, next) => {
-    res.render('view/productos', {});
-})
-
-app.get('/productos', (req, res, next) => {
-    contenedor.getAll().then((productos) => {
-        res.render('view/tabla-productos', {productos});
-    })
-})
-
-const server = app.listen(PORT, () => console.log('Server listening on ' + PORT));
-server.on("error", err => console.log(`Error ${err}`));*/
-
-//DE ACA PARA ABAJO ES CODIGO PARA SOCKET.IO
-
 const socket = io.connect();
-socket.on ('mi mensaje', (data) =>{
-    console.log (data);
-    alert(data.nombre);
-    socket.emit ('notificacion','mensaje recibido con exito')
-})
 
-function render (data){
-    const html = data.map ((elem,index)=>{
-        return ( `<div>
-        <strong>${elem.author} </strong>:
-        <em>${elem.text}</em> </div>`)
-    }).join("");
-    document.getElementById('mi mensaje').innerHTML = html; // si no es "mi mensaje" es "mensajes"
-}
+const productFormContainer = document.getElementById('product-form');
+const messageFormContainer = document.getElementById('message-form');
 
-socket.on ('mi mensaje',  function (data) {render (data);});
+const productListContainer = document.getElementById('product-list');
+const chatContainer = document.getElementById('chat');
 
-function addMessage (e) {
+socket.on ('all-products', (data) =>{
+    renderizarProductList(data);
+});
+
+socket.on ('messages',  (data) => {renderizarChat(data)});
+
+const agregarProducto = () => {
+    const producto= {
+            titulo: document.getElementById('titulo').value,
+        precio: document.getElementById (`precio`).value,
+        thumbnail: document.getElementById (`thumbnail`).value
+    };
+    socket.emit (`new-product`, producto);
+    return false;
+} 
+
+const agregarMensaje = () => {
     const mensaje= {
         author: document.getElementById('username').value,
         text: document.getElementById (`texto`).value
@@ -69,4 +30,50 @@ function addMessage (e) {
     socket.emit (`new-message`, mensaje);
     return false;
 }
+
+const renderizarFormProductos = async () => {
+    const respuesta = await fetch('/views/view/productos.handlebars')
+    const template = await respuesta.text()
+    // compile the template
+    const compiledTemplate = Handlebars.compile(template);
+    // execute the compiled template and print the output to the console
+    const html = compiledTemplate()
+    productFormContainer.innerHTML = html
+};
+
+const renderizarFormMensaje = async () => {
+    const respuesta = await fetch('/views/view/mensaje.handlebars')
+    const template = await respuesta.text()
+    // compile the template
+    const compiledTemplate = Handlebars.compile(template);
+    // execute the compiled template and print the output to the console
+    const html = compiledTemplate()
+    messageFormContainer.innerHTML = html
+};
+
+const renderizarProductList = async (productos) => {
+    const respuesta = await fetch('/views/view/tabla-productos.handlebars')
+    const template = await respuesta.text()
+    // compile the template
+    const compiledTemplate = Handlebars.compile(template);
+    // execute the compiled template and print the output to the console
+    const html = compiledTemplate({productos})
+    productListContainer.innerHTML = html
+} 
+
+const renderizarChat = async (mensajes) => {
+    const respuesta = await fetch('/views/view/chat.handlebars')
+    const template = await respuesta.text()
+    // compile the template
+    const compiledTemplate = Handlebars.compile(template);
+    // execute the compiled template and print the output to the console
+    const html = compiledTemplate({mensajes})
+    chatContainer.innerHTML = html
+} 
+
+renderizarFormProductos();
+renderizarFormMensaje();
+
+
+
 

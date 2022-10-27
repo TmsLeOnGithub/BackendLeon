@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>WEBSOCKET</title>
-            
-        <div id="mi mensaje"></div>
 
-        <link rel="stylesheet" href="./public/style.css">
-        <script src="/socket.io/socket.io.js" ></script>
-        <script src="/index.js" ></script>
-    </head>
-        <body>TUTORIAL DE SOCKET.IO</body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEBSOCKET</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
 
-        <form onsubmit="return addMessage(this)" >
-            <input type="text" id="username" placeholder="Tu nombre">
-            <input type="text" id="texto" placeholder="Contanos algo">
-            <input type="submit" value="Enviar">
-        </form>
+<body>
+    <h4>Ingrese un producto</h4>
+    <div id="product-form"></div>
+    <h4>Lista de productos</h4>
+    <div id="product-list"></div>
+    <h4>Centro de mensajes</h4>
+    <div id="message-form"></div>
+    <div id="chat"></div>
+
+    <script src="/index.js"></script>
+
+</body>
 </html>

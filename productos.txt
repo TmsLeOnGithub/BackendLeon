@@ -1,1 +1,1 @@
-[{"titulo":"Producto de prueba","precio":"4545","thumbnail":"/test","id":1}]
+[{"titulo":"Producto de prueba","precio":"4545","thumbnail":"/test","id":1},{"titulo":"Cafetera","precio":"25000","thumbnail":"/test","id":2},{"titulo":"Notebook","precio":"15000","thumbnail":"test","id":3},{"titulo":"microonda","precio":"15000","thumbnail":"/test","id":4}]
