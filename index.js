@@ -1,7 +1,10 @@
 import express from "express";
 import { productosRouter } from "./routes/productosRouter.js";
+import { carritoRouter } from "./routes/carritoRouter.js";
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { create } from 'express-handlebars';
+import { Contenedor } from "./containers/contenedor.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -13,10 +16,28 @@ app.use(express.urlencoded({
     extended: true
 }));
 app.use('/api/productos', productosRouter);
-app.use('/formularios', express.static(__dirname + '/public/index.html'));
-console.log(`1) link formulario: http://localhost:8080/formularios`)
-app.use(express.static(__dirname + '/public'))
-console.log('2) link formulario:.....');
+app.use('/api/carrito', carritoRouter);
 
-const server = app.listen(PORT, () => console.log('Server listening'));
+app.use(express.static(__dirname + '/public'))
+
+const hbs = create({});
+
+const contenedor = new Contenedor('productos.txt');
+
+// Agrego handlebar como view engine
+app.engine(`handlebars`, hbs.engine);
+app.set('view engine', 'handlebars');
+app.set(`views`, './views');
+
+app.get('/', (req, res, next) => {
+    res.render('view/productos', {});
+})
+
+app.get('/productos', (req, res, next) => {
+    contenedor.getAll().then((productos) => {
+        res.render('view/tabla-productos', {productos});
+    })
+})
+
+const server = app.listen(PORT, () => console.log('Server listening on ' + PORT));
 server.on("error", err => console.log(`Error ${err}`));

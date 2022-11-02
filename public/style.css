@@ -1,0 +1,18 @@
+.active{
+    color: #3FB6A8;
+}
+
+
+.rightbox{
+    float:right;
+    width:60%;
+    height:100%;
+}
+
+.paga {
+    background-color: green;
+}
+
+.noPaga {
+ background-color: red;
+}

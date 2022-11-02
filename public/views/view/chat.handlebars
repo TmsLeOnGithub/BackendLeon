@@ -1,0 +1,11 @@
+{{#if mensajes.length}}
+
+<ul>
+    {{#each mensajes}}
+    <li>
+        {{this.createdAt}} - {{this.author}}: {{this.text}}
+    </li>
+    {{/each}}
+</ul>
+
+{{/if}}
