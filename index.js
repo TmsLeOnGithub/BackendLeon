@@ -1,5 +1,6 @@
 import express from "express";
 import { productosRouter } from "./routes/productosRouter.js";
+import { carritoRouter } from "./routes/carritoRouter.js";
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { create } from 'express-handlebars';
@@ -15,6 +16,8 @@ app.use(express.urlencoded({
     extended: true
 }));
 app.use('/api/productos', productosRouter);
+app.use('/api/carrito', carritoRouter);
+
 app.use(express.static(__dirname + '/public'))
 
 const hbs = create({});

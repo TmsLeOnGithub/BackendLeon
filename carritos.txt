@@ -1,0 +1,1 @@
+[{"id":1,"timestamp":1667329881265,"productos":[{"titulo":"Producto de prueba","precio":"4545","thumbnail":"/test","id":1}]},{"id":2,"timestamp":1667329969059,"productos":[]}]

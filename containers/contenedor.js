@@ -11,6 +11,7 @@ export class Contenedor {
     try {
       const items = await this.getAll();
       item.id = items?.length === 0 ? 1 : items[items.length - 1].id + 1;
+      item.timestamp = Date.now();
       items.push(item);
       await fs.promises.writeFile(this.nombreArchivo, JSON.stringify(items), { encodig: `utf-8` });
       return item;
@@ -26,6 +27,8 @@ export class Contenedor {
       item.titulo = itemModificado.titulo;
       item.precio = itemModificado.precio;
       item.thumbnail = itemModificado.thumbnail;
+      item.descripcion = itemModificado.descripcion;
+      item.stock = itemModificado.stock;
       await fs.promises.writeFile(this.nombreArchivo, JSON.stringify(items), { encodig: `utf-8` });
       return item;
     } catch (error) {

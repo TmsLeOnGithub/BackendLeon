@@ -2,8 +2,6 @@ import express from "express";
 import { Contenedor } from '../containers/contenedor.js';
 
 const contenedor = new Contenedor('productos.txt');
-const app = express();
-const PORT = 8080;
 const { Router } = express;
 export const productosRouter = Router();
 
@@ -26,12 +24,14 @@ productosRouter.post('/', (req, res) => {
     const producto = req.body;
     contenedor.save(producto).then((item) => {
         res.status(200).send(item)
+        res.end();
     })
 })
 
 productosRouter.put('/:id', (req, res) => {
     contenedor.update(Number(req.params?.id), req.body).then((item) => {
         res.status(200).send(item)
+        res.end();
     })
 })
 
