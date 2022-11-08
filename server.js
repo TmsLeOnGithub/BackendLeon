@@ -3,12 +3,10 @@ import { Server as IOServer } from 'socket.io'
 import { Server as HttpServer } from 'http';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import dayjs from "dayjs";
-import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 
-dayjs.extend(customParseFormat)
-
-import { Contenedor } from './containers/contenedor.js';
+import { ContenedorProductosDB } from './containers/contenedorProductosDB.js';
+import { ContenedorMensajeDb } from './containers/contenedorMensajeDB.js';
+import { productosRouterDb } from './routes/productosRouterDb.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -18,13 +16,15 @@ const httServer = new HttpServer(app)
 const io = new IOServer(httServer)
 
 app.use(express.static('./public'))
+app.use('/api/productos', productosRouterDb)
 app.get('/', (req, res) => {
   res.sendFile('index.html', { root: __dirname })
 })
 
-const contenedor = new Contenedor('productos.txt');
+const contenedor = new ContenedorProductosDB('productos');
+const contenedorMensajes = new ContenedorMensajeDb('mensajes');
+
 const PORT = 3000;
-const mensajes = [];
 
 httServer.listen(PORT, () => console.log('Server ON  :) PORT ' + PORT))
 
@@ -60,14 +60,13 @@ const guardarProducto = async (producto) => {
 /*                                  CHAT                                 */
 /* -------------------------------------------------------------------------- */
 
-const guardarMensaje = async (message) =>{
-  const date = new Date()
-  const dateFormated = dayjs(date).format('DD/MM/YYYY hh:mm:ss')
-  const newMessage = { ...message, createdAt: `${dateFormated} hs` }
-  mensajes.push(newMessage);
-  io.sockets.emit("messages", mensajes)
+const guardarMensaje = async (message) => {
+  contenedorMensajes.save(message).then(() => {
+    contenedorMensajes.getAll().then((mensajes) => io.sockets.emit("messages", mensajes))
+  });
 }
 
+
 const enviarTodosLosMensajes = async (socket) => {
-  socket.emit("messages", mensajes)
+  contenedorMensajes.getAll().then((mensajes) => io.sockets.emit("messages", mensajes))
 }

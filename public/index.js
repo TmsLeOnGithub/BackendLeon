@@ -24,8 +24,8 @@ const agregarProducto = () => {
 
 const agregarMensaje = () => {
     const mensaje= {
-        author: document.getElementById('username').value,
-        text: document.getElementById (`texto`).value
+        username: document.getElementById('username').value,
+        texto: document.getElementById (`texto`).value
     };
     socket.emit (`new-message`, mensaje);
     return false;
