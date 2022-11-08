@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"titulo\":\"Televisor\",\r\n    \"precio\":\"4545\",\r\n    \"thumbnail\":\"/test\", \r\n    \"descripcion\": \"TV 50'' 4K\", \r\n    \"stock\": 40\r\n}",
+					"raw": "{\r\n    \"titulo\":\"Notebook\",\r\n    \"precio\":\"4545\",\r\n    \"thumbnail\":\"/test\", \r\n    \"descripcion\": \"HP - Gamer\", \r\n    \"stock\": 40\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -21,12 +21,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/productos",
+					"raw": "http://localhost:3000/api/productos",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "3000",
 					"path": [
 						"api",
 						"productos"
@@ -53,12 +53,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/productos",
+					"raw": "http://localhost:3000/api/productos",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "3000",
 					"path": [
 						"api",
 						"productos"
@@ -85,16 +85,16 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/productos/1",
+					"raw": "http://localhost:3000/api/productos/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "3000",
 					"path": [
 						"api",
 						"productos",
-						"1"
+						"5"
 					]
 				}
 			},
@@ -115,16 +115,16 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/productos/2",
+					"raw": "http://localhost:3000/api/productos/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "3000",
 					"path": [
 						"api",
 						"productos",
-						"2"
+						"5"
 					]
 				}
 			},
@@ -137,7 +137,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"titulo\":\"Notebook\",\r\n    \"precio\":\"4545\",\r\n    \"thumbnail\":\"/test\", \r\n    \"descripcion\": \"HP - Gamer\", \r\n    \"stock\": 39\r\n}",
+					"raw": "{\r\n    \"titulo\":\"Notebook\",\r\n    \"precio\":546546,\r\n    \"thumbnail\":\"/test\", \r\n    \"descripcion\": \"HP - Gamer\", \r\n    \"stock\": 80\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -145,12 +145,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/productos/1",
+					"raw": "http://localhost:3000/api/productos/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "3000",
 					"path": [
 						"api",
 						"productos",
@@ -175,12 +175,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/carrito",
+					"raw": "http://localhost:3000/api/carrito",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "3000",
 					"path": [
 						"api",
 						"carrito"
@@ -204,12 +204,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/carrito/3",
+					"raw": "http://localhost:3000/api/carrito/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "3000",
 					"path": [
 						"api",
 						"carrito",
@@ -237,12 +237,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/carrito/2/productos",
+					"raw": "http://localhost:3000/api/carrito/2/productos",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "3000",
 					"path": [
 						"api",
 						"carrito",
@@ -268,12 +268,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/carrito/2/productos/1",
+					"raw": "http://localhost:3000/api/carrito/2/productos/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "3000",
 					"path": [
 						"api",
 						"carrito",
