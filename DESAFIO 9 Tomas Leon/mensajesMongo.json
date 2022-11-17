@@ -1,0 +1,61 @@
+[{
+  "_id": {
+    "$oid": "6373a57982ed20f42aea9488"
+  },
+  "username": "tmsleon",
+  "texto": "primer mensaje de prueba"
+},{
+  "_id": {
+    "$oid": "6373a59482ed20f42aea9489"
+  },
+  "username": "tmsleon",
+  "texto": "Confirmar si llego el mensaje"
+},{
+  "_id": {
+    "$oid": "6373a5b682ed20f42aea948a"
+  },
+  "username": "usuario2",
+  "texto": "mensaje recibido"
+},{
+  "_id": {
+    "$oid": "6373a64282ed20f42aea948b"
+  },
+  "username": "tmsleon",
+  "texto": "prefecto"
+},{
+  "_id": {
+    "$oid": "6373a8a082ed20f42aea948c"
+  },
+  "username": "tmsleon",
+  "texto": "prefecto"
+},{
+  "_id": {
+    "$oid": "6373ae9f82ed20f42aea9498"
+  },
+  "username": "user245",
+  "text": "Agregué 11 articulos a la coleccion productos"
+},{
+  "_id": {
+    "$oid": "6373aecb82ed20f42aea9499"
+  },
+  "username": "user2",
+  "text": "Perfecto,gracias"
+},{
+  "_id": {
+    "$oid": "6373af0882ed20f42aea949a"
+  },
+  "username": "user245",
+  "text": "De nada"
+},{
+  "_id": {
+    "$oid": "6373af5d82ed20f42aea949b"
+  },
+  "username": "tmsleon",
+  "text": "cuanto stock hay de webcams?"
+},{
+  "_id": {
+    "$oid": "6373afe482ed20f42aea949c"
+  },
+  "username": "user2",
+  "text": "quedan 8"
+}]
