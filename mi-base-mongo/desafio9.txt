@@ -1,0 +1,55 @@
+TRABAJO MONGODB (TOMAS LEON)
+
+
+//CREAR BASE DE DATOS LLAMADA ECOMMERCE:/
+
+use ecommerce 
+
+
+//AGREGARLE LA COLLECION MENSAJES Y LA COLECCION PRODUCTOS//
+
+db.createCollection('mensajes')
+db.createCollection('productos')
+
+
+//AGREGAR DOCUMENTOS A LA COLLECION MENSAJES Y A PRODUCTOS// 
+
+db.mensajes.insert({'username': 'user245', 'texto': 'Agregue 11 articulos en la collecion productos'})
+db.productos.insert ([{"titulo":"Celular","precio":175","thumbnail":"/test","descripcion":"Samsung-GalaxyZ","stock":459,"id":27},{"titulo":"TV 65´´","precio":2769,"thumbnail":"/test","descripcion":"TV Samsung 4k","stock":150,"id":65},{"titulo":"Sala de cine","precio":4999,"thumbnail":"/test","descripcion":"Equipo completo con TV 65´´, sillon y parlantes","stock":80,"id":80},{"titulo":"Mi Band 7","precio":50,"thumbnail":"/test","descripcion":"Smart Watch Xiaomi","stock":800,"id":7},{"titulo":"Monopatin ","precio":3759,"thumbnail":"/test","descripcion":"Monopatin electrico","stock":45,"id":25},{"titulo":"e-book´´","precio":109,"thumbnail":"/test","descripcion":"Kindle modelo 2022","stock":753,"id":2022},{"titulo":"webcam","precio":900,"thumbnail":"/test","descripcion":"Webcam 4k con microfono,y sensor de voz","stock":8,"id":8},{"titulo":"Crhome cast","precio":29,"thumbnail":"/test","descripcion":"Convierte tu tele en Smart","stock":9,"id":325}])
+
+
+//LISTAR LOS DOCUMENTOS DE CADA COLLECION
+
+db.productos.find()
+db.mensajes.find()
+
+//MOSTRAR LA CANTIDAD DE DOCUMENTOS EN CADA COLLECCIÓN
+
+db.productos.estimatedDocumentCount()
+db.mensajes.estimatedDocumentCount()
+
+//AGREGAR UN PRODUCTO MÁS A LA COLLECCIÓN PRODUCTOS
+db.productos.insert ([{"titulo":"Notebook","precio":"454","thumbnail":"/test","descripcion":"HP - Gamer","stock":39,"id":1})
+
+
+//REALIZAR UNA BUSQUEDA POR NOMBRE ESPECIFICO 
+
+db.productos.find({'titulo':'webcam'})  //por nombre
+
+db.productos.find({precio:{$lt:1000}})  //precio menor a 1000 euros
+
+db.productos.find ({$and:[{precio:{$lt:3000}},{precio:{$gt:1000}}]}) //precio entre 1000 y 3000 euros
+
+db.productos.find({precio:{$gt:3000}})  //precio mayor a 3000 euros
+
+db.productos.find().sort({price: 1}).limit(1).skip(2) // Buscar el tercer producto más barato
+
+
+//ACTUALIZAR TODOS LOS PRODUCTOS CON UN STOCK:100
+
+db.productos.update({"stock": {$exists: true}}, {$set: {"stock": 100}}, {multi:true})
+
+//ACTUALIZAR TODOS LOS PRODUCTOS CON PRECIO MAYOR A 4000 CON STOCK 0
+db.productos.updateMany({'precio':{$gt:4000}},{$set: {'stock':0}}, {multi:true}) 
+
+

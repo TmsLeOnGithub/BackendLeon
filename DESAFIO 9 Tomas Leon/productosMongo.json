@@ -1,0 +1,111 @@
+[{
+  "_id": {
+    "$oid": "6373a93f82ed20f42aea948d"
+  },
+  "titulo": "Notebook",
+  "precio": 454,
+  "thumbnail": "/test",
+  "descripcion": "HP-Gamer",
+  "stock": 99,
+  "id": 1
+},{
+  "_id": {
+    "$oid": "6373a93f82ed20f42aea948e"
+  },
+  "titulo": "Alexa",
+  "precio": 69,
+  "thumbnail": "/test",
+  "descripcion": "Asistente para la casa",
+  "stock": 99,
+  "id": 11
+},{
+  "_id": {
+    "$oid": "6373acc282ed20f42aea948f"
+  },
+  "titulo": "Celular",
+  "precio": 1759,
+  "thumbnail": "/test",
+  "descripcion": "Samsung-GalaxyZ",
+  "stock": 99,
+  "id": 27
+},{
+  "_id": {
+    "$oid": "6373acc282ed20f42aea9490"
+  },
+  "titulo": "TV 65´´",
+  "precio": 2769,
+  "thumbnail": "/test",
+  "descripcion": "TV Samsung 4k",
+  "stock": 99,
+  "id": 65
+},{
+  "_id": {
+    "$oid": "6373acc282ed20f42aea9491"
+  },
+  "titulo": "Sala de cine",
+  "precio": 4999,
+  "thumbnail": "/test",
+  "descripcion": "Equipo completo con TV 65´´, sillon y parlantes",
+  "stock": 0,
+  "id": 80
+},{
+  "_id": {
+    "$oid": "6373acc282ed20f42aea9492"
+  },
+  "titulo": "Mi Band 7",
+  "precio": 50,
+  "thumbnail": "/test",
+  "descripcion": "Smart Watch Xiaomi",
+  "stock": 99,
+  "id": 7
+},{
+  "_id": {
+    "$oid": "6373acc282ed20f42aea9493"
+  },
+  "titulo": "Monopatin",
+  "precio": 3759,
+  "thumbnail": "/test",
+  "descripcion": "Monopatin electrico",
+  "stock": 99,
+  "id": 25
+},{
+  "_id": {
+    "$oid": "6373acc282ed20f42aea9494"
+  },
+  "titulo": "e-book´´",
+  "precio": 109,
+  "thumbnail": "/test",
+  "descripcion": "Kindle modelo 2022",
+  "stock": 99,
+  "id": 2022
+},{
+  "_id": {
+    "$oid": "6373acc282ed20f42aea9495"
+  },
+  "titulo": "webcam",
+  "precio": 900,
+  "thumbnail": "/test",
+  "descripcion": "Webcam 4k con microfono,y sensor de voz",
+  "stock": 99,
+  "id": 8
+},{
+  "_id": {
+    "$oid": "6373acc282ed20f42aea9496"
+  },
+  "titulo": "Crhome cast",
+  "precio": 29,
+  "thumbnail": "/test",
+  "descripcion": "Convierte tu tele en Smart",
+  "stock": 99,
+  "id": 325
+},{
+  "_id": {
+    "$oid": "6373ad4182ed20f42aea9497"
+  },
+  "titulo": "Fire TV cube",
+  "precio": 154,
+  "thumbnail": "/test",
+  "descripcion": "Reproductor multimedia en streaming con control de voz",
+  "stock": 99,
+  "id": 37
+}]
