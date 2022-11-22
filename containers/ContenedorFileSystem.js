@@ -1,36 +1,44 @@
 import fs from 'fs';
 
-export class Contenedor {
+// Contenedor que trabaja sobre un archivo
+export class ContenedorFileSystem {
   nombreArchivo;
 
   constructor(nombreArchivo) {
-    this.nombreArchivo = nombreArchivo;
+    this.nombreArchivo = '.' + nombreArchivo;
   }
 
   async save(item) {
     try {
       const items = await this.getAll();
+      console.log("items: ", items);
+      console.log("item a guardar: ", item);
       item.id = items?.length === 0 ? 1 : items[items.length - 1].id + 1;
       item.timestamp = Date.now();
+
       items.push(item);
       await fs.promises.writeFile(this.nombreArchivo, JSON.stringify(items), { encodig: `utf-8` });
       return item;
     } catch (error) {
-      console.log("hubo un error al intentar guardar el item")
+      console.log("error al guardar el item.")
     }
   }
 
   async update(id, itemModificado) {
     try {
       const items = await this.getAll();
-      const item = items?.find(i => i.id === id);
-      item.titulo = itemModificado.titulo;
-      item.precio = itemModificado.precio;
-      item.thumbnail = itemModificado.thumbnail;
-      item.descripcion = itemModificado.descripcion;
-      item.stock = itemModificado.stock;
+      const index = items?.findIndex(i => i.id === id);
+
+      if(index === -1) return null;
+
+      const item = items[index];
+
+      items[index] = {
+        ...item,
+        ...itemModificado
+      }
       await fs.promises.writeFile(this.nombreArchivo, JSON.stringify(items), { encodig: `utf-8` });
-      return item;
+      return items[index];
     } catch (error) {
       console.log("hubo un error al intentar guardar el item");
     }
@@ -48,6 +56,8 @@ export class Contenedor {
 
   async getAll() {
     try {
+
+      console.log(this.nombreArchivo);
       const file = await fs.promises.readFile(this.nombreArchivo, 'utf-8');
       if (file) {
         return JSON.parse(file);
@@ -65,7 +75,7 @@ export class Contenedor {
       const newItemsArray = items.filter(item => item.id !== id);
       await fs.promises.writeFile(this.nombreArchivo, JSON.stringify(newItemsArray), { encodig: `utf-8` });
     } catch (error) {
-      console.log(`Error al eliminar el producto`)
+      console.log(`Error al eliminar el item`)
     }
   }
 
@@ -74,7 +84,7 @@ export class Contenedor {
       const items = []
       await fs.promises.writeFile(this.nombreArchivo, JSON.stringify(items), { encodig: `utf-8` });
     } catch (error) {
-      console.log(`No se pudieron eliminar los productos.`)
+      console.log(`No se pudieron eliminar los items.`)
     }
   }
 }

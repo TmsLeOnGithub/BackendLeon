@@ -1,0 +1,28 @@
+[
+    {
+      "timestamp": "28/10/2022 21:37:05",
+      "products": [
+        {
+          "titulo": "Notebook",
+          "description": "computadora portatil",
+          "code": "MCC122",
+          "thumbnail": "/test",
+          "precio": 1000,
+          "stock": 20,
+          "timestamp": "28/10/2022 20:52:12",
+          "id": 2
+        },
+        {
+          "titulo": "Ebook",
+          "description": "computadora portatil",
+          "code": "EBK1978",
+          "thumbnail": "/test",
+          "precio": 1000,
+          "stock": 20,
+          "timestamp": "221/11/2022 20:58:46",
+          "id": 3
+        }
+      ],
+      "id": 1
+    }
+  ]

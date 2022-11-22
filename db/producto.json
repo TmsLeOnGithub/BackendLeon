@@ -1,0 +1,32 @@
+[
+    {
+       "titulo": "Notebook",
+       "description": "computadora portatil",
+       "code": "BGH4837",
+       "thumbnail": "/test",
+       "precio": 1000,
+       "stock": 20,
+       "timestamp": "12/10/2022 20:37:12",
+       "id": 1
+    },
+    {
+       "titulo": "Celular",
+       "description": "galaxy A32",
+       "code": "MCC122",
+       "thumbnail": "/test",
+       "precio": 21000,
+       "stock": 20,
+       "timestamp": "29/10/2022 20:52:12",
+       "id": 2
+    },
+    {
+       "titulo": "Ebook",
+       "description": "Libro portatil",
+       "code": "EBK1978",
+       "thumbnail": "/test",
+       "precio": 1000,
+       "stock": 20,
+       "timestamp": "21/11/2022 20:58:46",
+       "id": 3
+    }
+ ]
