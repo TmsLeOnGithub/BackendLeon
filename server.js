@@ -4,9 +4,12 @@ import { Server as HttpServer } from 'http';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
+import { productosRouter } from './routes/productosRouter.js'
+import { carritoRouter } from './routes/carritoRouter.js'
+
 import { ContenedorProductosDB } from './containers/contenedorProductosDB.js';
 import { ContenedorMensajeDb } from './containers/contenedorMensajeDB.js';
-import { productosRouterDb } from './routes/productosRouterDb.js';
+import { config } from './config/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -14,9 +17,12 @@ const __dirname = dirname(__filename);
 const app = express();
 const httServer = new HttpServer(app)
 const io = new IOServer(httServer)
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static('./public'))
-app.use('/api/productos', productosRouterDb)
+app.use("/api/carrito", carritoRouter);
+app.use('/api/productos', productosRouter)
 app.get('/', (req, res) => {
   res.sendFile('index.html', { root: __dirname })
 })
@@ -24,9 +30,7 @@ app.get('/', (req, res) => {
 const contenedor = new ContenedorProductosDB('productos');
 const contenedorMensajes = new ContenedorMensajeDb('mensajes');
 
-const PORT = 3000;
-
-httServer.listen(PORT, () => console.log('Server ON  :) PORT ' + PORT))
+httServer.listen(config.SERVER.PORT, () => console.log('Server ON  :) PORT ' + config.SERVER.PORT))
 
 io.on('connection', socket => {
   enviarTodosLosProductos(socket)

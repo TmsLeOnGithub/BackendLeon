@@ -3,9 +3,7 @@ export class Carrito {
     timestamp;
     productos;
 
-    constructor(id){
-        this.id = id;
-        this.timestamp = Date.now();
+    constructor(){
         this.productos = [];
     }
 }

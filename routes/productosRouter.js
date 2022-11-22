@@ -1,19 +1,18 @@
 import express from "express";
-import { Contenedor } from '../containers/contenedor.js';
+import { ProductDao } from "../dao/index.js";
 
-const contenedor = new Contenedor('productos.txt');
 const { Router } = express;
 export const productosRouter = Router();
 
 productosRouter.get('/', (req, res) => {
-    contenedor.getAll().then(productos => {
+    ProductDao.getAll().then(productos => {
         res.send(productos);
         res.end();
     });
 })
 
 productosRouter.get('/:id', (req, res) => {
-    contenedor.getById(Number(req.params?.id)).then(producto => {
+    ProductDao.getById(req.params?.id).then(producto => {
         res.send(producto ? producto : {error: 'Producto no encontrado'});
         res.end();
     })
@@ -22,21 +21,22 @@ productosRouter.get('/:id', (req, res) => {
 productosRouter.post('/', (req, res) => {
     console.log(req.body);
     const producto = req.body;
-    contenedor.save(producto).then((item) => {
+    producto.timestamp = Date.now();
+    ProductDao.save(producto).then((item) => {
         res.status(200).send(item)
         res.end();
     })
 })
 
 productosRouter.put('/:id', (req, res) => {
-    contenedor.update(Number(req.params?.id), req.body).then((item) => {
+    ProductDao.update(req.params?.id, req.body).then((item) => {
         res.status(200).send(item)
         res.end();
     })
 })
 
 productosRouter.delete('/:id', (req, res) => {
-    contenedor.deleteById(Number(req.params?.id)).then(() => {
+    ProductDao.deleteById(req.params?.id).then(() => {
         res.status(200).send();
         res.end();
     })

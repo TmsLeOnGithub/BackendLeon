@@ -1,1 +1,1 @@
-[{"titulo":"Notebook","precio":"4545","thumbnail":"/test","descripcion":"HP - Gamer","stock":39,"id":1,"timestamp":1667350308310}]
+[{"titulo":"Notebook","precio":546546,"thumbnail":"/test","descripcion":"HP - Gamer","stock":80,"id":1,"timestamp":1667350308310}]
