@@ -3,6 +3,7 @@ dotenv.config();
 
 const PRODUCTS_FILENAME = "productos";
 const CARTS_FILENAME = "carritos";
+const MESSAGES_FILENAME = "mensajes";
 
 const config = {
   SERVER: {
@@ -13,6 +14,7 @@ const config = {
     filesystem: {
       PRODUCTS_FILENAME,
       CARTS_FILENAME,
+      MESSAGES_FILENAME
     },
     mongo: {
       url: process.env.MONGO_DB_URL,

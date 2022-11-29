@@ -3,13 +3,16 @@ import { Server as IOServer } from 'socket.io'
 import { Server as HttpServer } from 'http';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import normalizr from 'normalizr';
+const normalize = normalizr.normalize;
+const denormalize = normalizr.denormalize;
 
 import { productosRouter } from './routes/productosRouter.js'
-import { carritoRouter } from './routes/carritoRouter.js'
-
-import { ContenedorProductosDB } from './containers/contenedorProductosDB.js';
-import { ContenedorMensajeDb } from './containers/contenedorMensajeDB.js';
+import { carritoRouter } from './routes/carritoRouter.js';
 import { config } from './config/index.js';
+import { MensajesDao, ProductDao } from './dao/index.js';
+import fakerRouter from './routes/fakerRouter.js';
+import mensajesSchema from './normalize/mensajes.schema.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -23,18 +26,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('./public'))
 app.use("/api/carrito", carritoRouter);
 app.use('/api/productos', productosRouter)
+app.use("/api/productos-test", fakerRouter);
 app.get('/', (req, res) => {
   res.sendFile('index.html', { root: __dirname })
 })
 
-const contenedor = new ContenedorProductosDB('productos');
-const contenedorMensajes = new ContenedorMensajeDb('mensajes');
-
 httServer.listen(config.SERVER.PORT, () => console.log('Server ON  :) PORT ' + config.SERVER.PORT))
 
 io.on('connection', socket => {
-  enviarTodosLosProductos(socket)
-  enviarTodosLosMensajes(socket)
+ enviarTodosLosProductos(socket)
+ enviarTodosLosMensajes(socket)
 
   socket.on("new-product", producto => {
     guardarProducto(producto)
@@ -48,15 +49,14 @@ io.on('connection', socket => {
 /* -------------------------------------------------------------------------- */
 /*                                  PRODUCTOS                                 */
 /* -------------------------------------------------------------------------- */
-
 const enviarTodosLosProductos = async (socket) => {
-  const productos = await contenedor.getAll()
+  const productos = await ProductDao.getAll()
   socket.emit("all-products", productos)
 }
 
 const guardarProducto = async (producto) => {
   await contenedor.save(producto)
-  const productos = await contenedor.getAll()
+  const productos = await ProductDao.getAll()
   io.sockets.emit("all-products", productos)
 }
 
@@ -64,13 +64,19 @@ const guardarProducto = async (producto) => {
 /*                                  CHAT                                 */
 /* -------------------------------------------------------------------------- */
 
-const guardarMensaje = async (message) => {
-  contenedorMensajes.save(message).then(() => {
-    contenedorMensajes.getAll().then((mensajes) => io.sockets.emit("messages", mensajes))
-  });
+const guardarMensaje = async (mensaje) => {   
+   MensajesDao.save(mensaje).then(() => {
+    MensajesDao.getAll().then((mensajes) => {
+      const chat = { id: 'chat', mensajes: [...mensajes?.map(mensaje => { return {_id: mensaje._id, ...mensaje._doc} })] };
+      io.sockets.emit("messages",  normalize(chat, mensajesSchema.chat))
+    })
+   });
 }
 
 
 const enviarTodosLosMensajes = async (socket) => {
-  contenedorMensajes.getAll().then((mensajes) => io.sockets.emit("messages", mensajes))
+  MensajesDao.getAll().then((mensajes) => {
+    const chat = { id: 'chat', mensajes: [...mensajes?.map(mensaje => { return {_id: mensaje._id, ...mensaje._doc} })] };
+    io.sockets.emit("messages",  normalize(chat, mensajesSchema.chat))
+  })
 }
