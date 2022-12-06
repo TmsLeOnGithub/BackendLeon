@@ -2,6 +2,7 @@ const socket = io.connect();
 
 const productFormContainer = document.getElementById('product-form');
 const messageFormContainer = document.getElementById('message-form');
+const welcomeContainer = document.getElementById('welcome-container');
 
 const productListContainer = document.getElementById('product-list');
 const chatContainer = document.getElementById('chat');
@@ -18,6 +19,9 @@ const chatSchema = new normalizr.schema.Entity('chat', {
     mensajes: [mensajes]
 })
 
+const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+});
 
 
 // socket.on ('all-products', (data) =>{
@@ -57,6 +61,15 @@ const agregarMensaje = () => {
     socket.emit (`new-message`, mensaje);
     return false;
 }
+
+const renderizarWelcomeContainer = async () => {
+    const respuesta = await fetch('/views/view/bienvenido.handlebars');
+    const template = await respuesta.text()
+    const compiledTemplate = Handlebars.compile(template);
+    const username = params?.username;
+    const html = compiledTemplate({username})
+    welcomeContainer.innerHTML = html
+};
 
 const renderizarFormProductos = async () => {
     const respuesta = await fetch('/views/view/productos.handlebars')
@@ -113,7 +126,7 @@ const renderizarChat = async (chat) => {
 
 renderizarFormProductos();
 renderizarFormMensaje();
-
+renderizarWelcomeContainer();
 
 
 
