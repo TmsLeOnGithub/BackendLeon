@@ -6,6 +6,7 @@ import {  ProductosDaoMongoDB } from "./productos/ProductosDaoMongoDB.js";
 import {  ProductosDaoFileSystem } from "./productos/ProductosDaoFileSystem.js";
 import { MongoDBService } from "../services/MongoDBService/index.js";
 import { MensajesDaoMongoDB } from "./mensajes/MensajesDaoMongoDB.js";
+import { UsersDaoMongoDB } from "./Users/UsersDaoMongoDB.js";
 
 const getSelectedDaos = () => {
   switch (config.SERVER.SELECTED_DATABASE) {
@@ -14,18 +15,31 @@ const getSelectedDaos = () => {
       return {
         ProductDao: new ProductosDaoMongoDB(),
         CartDao: new CarritosDaoMongoDB(),
-        MensajesDao: new MensajesDaoMongoDB()
+        MensajesDao: new MensajesDaoMongoDB(),
+        UsersDao: new UsersDaoMongoDB(),
       };
     }
     case "filesystem": {
       return {
         ProductDao: new ProductosDaoFileSystem(),
         CartDao: new CarritosDaoFileSystem(),
+        MensajesDao: new MensajesDaoMongoDB(),
+        UsersDao: new UsersDaoMongoDB(),
       };
     }
-  }
+}
 };
 
-const { ProductDao, CartDao, MensajesDao } = getSelectedDaos();
+const { ProductDao, CartDao, MensajesDao, UsersDao } = getSelectedDaos();
 
-export { ProductDao, CartDao, MensajesDao };
+export { ProductDao, CartDao, UsersDao, MensajesDao };
+
+     
+
+      
+  
+
+
+
+ 
+

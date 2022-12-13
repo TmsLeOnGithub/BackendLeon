@@ -5,7 +5,7 @@
     <h1 class="text-center mb-3">Iniciar sesión</h1>
     <form action="/session/login" method="POST" id="form-add-product" class="mb-2">
         <div class='mb-3'>
-            <input id="name-product" class="form-control" type='text' name='username' placeholder="Usuario" />
+            <input id="name-product" class="form-control" type='email' name='email' placeholder="Email" />
         </div>
         <div class='mb-3'>
             <input id="price-product" class="form-control" type='password' name='password' placeholder="Contraseña" />
@@ -14,4 +14,7 @@
             <input class="btn btn-success" type='submit' value='Ingresar' />
         </div>
     </form>
+
+    <a href="/session/signup" class="btn btn-primary btn-lg active" role="button">Registrarse</a>
+
 </section>

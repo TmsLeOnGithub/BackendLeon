@@ -21,6 +21,12 @@ class ContenedorMongoDB {
     return response;
   }
 
+  async getOne(options) {
+    const response = await this.model.findOne(options).lean().exec();
+    return response;
+  }
+
+
   async update(id, newData) {
     const response = await this.model.findByIdAndUpdate(id, newData, {
       new: true,

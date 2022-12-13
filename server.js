@@ -11,6 +11,9 @@ import { MensajesDao, ProductDao } from './dao/index.js';
 import fakerRouter from './routes/fakerRouter.js';
 import mensajesSchema from './normalize/mensajes.schema.js';
 
+//import cors from 'cors';//////////////////////
+import { PassportAuth } from './middlewares/index.js'; //////////
+
 
 //#region handlebars engine
 import {engine} from 'express-handlebars';
@@ -24,6 +27,8 @@ import mongoStore from 'connect-mongo';
 import sessionRouter from './routes/sessionRouter.js';
 import { authApiMiddleware } from './middlewares/api-auth.js';
 import { authUIMiddleware } from './middlewares/ui-auth.js';
+import passport from 'passport';
+import checkAuthentication from './middlewares/utilDeMiddlewares.js';
 // #endregion
 
 const normalize = normalizr.normalize;
@@ -31,10 +36,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
+
+PassportAuth.init(); /////////////////////////////
+
 const httServer = new HttpServer(app)
 const io = new IOServer(httServer)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+//app.use("/api/auth",AuthRouter)/////////////////////////////////fijarse si va en este archivo
 
 //#region HANDLEBAR AS ENGINE
 app.engine('handlebars', engine());
@@ -50,6 +59,8 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use("/session", sessionRouter);
 
 //#endregion
@@ -58,8 +69,9 @@ app.use(express.static('./public'))
 app.use("/api/carrito", authApiMiddleware, carritoRouter);
 app.use('/api/productos', authApiMiddleware, productosRouter)
 app.use("/api/productos-test", authApiMiddleware, fakerRouter);
-app.get('/', authUIMiddleware, (req, res) => {
-  res.sendFile('index.html', { root: __dirname })
+app.get('/', checkAuthentication, (req, res) => {
+    res.sendFile('index.html', { root: __dirname })
+
 })
 
 httServer.listen(config.SERVER.PORT, () => console.log('Server ON  :) PORT ' + config.SERVER.PORT))

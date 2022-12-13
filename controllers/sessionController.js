@@ -1,16 +1,47 @@
+import { UsersDao } from "../dao/index.js";
+
 const allowedUsers = [{ username: 'tomas', password: 'leon' }]
 
+const signup = async (req, res) => {
+
+ try {
+    const { email, password } = req.body;
+    if (!email || !password)
+      return res.send({ success: false });
+
+    const existUser = await UsersDao.getOne({ email });
+
+    if (existUser && existUser.password) {
+      return res.render({ success: false, error: "el usuario ya existe" });//////
+    }
+
+    if (existUser && !existUser.password) {
+      const updateUser = await UsersDao.updateById(existUser._id, {
+        ...existUser,
+        password,
+      });
+      return res.send({ success: true });
+    }
+
+    // PASSWORD! podriamos usar bcrypt!
+  
+    await UsersDao.save({ email, password });
+
+    res.send({ success: true });
+  } catch (error) {
+    console.log(error);
+
+    res.send({ success: false });
+  }
+
+};
+
+
+
 const login = (req, res) => {
-	if (req.session?.nombre) res.redirect(`/?username=${req.session?.nombre}`);
-	else {
-		const { username, password } = req.body;
-		const user = getUser(username);
-		if (user && user.password === password) {
-			req.session.nombre = username;
-			res.redirect(`/?username=${req.session?.nombre}`)
-		} else 
-			res.redirect('/?msj=Usuario o password incorrectos')
-	}
+  if(req.user) {
+    res.redirect(`/?username=${req.user.email}`)
+  }
 }
 
 
@@ -27,6 +58,18 @@ const loginPage = (req, res) => {
 	res.render('login.handlebars')
 }
 
+const signupPage = (req, res) => {
+	res.render('signup.handlebars')
+}
+
+const errorSignupPage = (req, res) => {
+	res.render('error-signup.handlebars')
+}
+
+const errorLoginPage = (req, res) => {
+	res.render('faillogin.handlebars')
+}
+
 const getUser = username => allowedUsers.find(user => user.username === username);
 
-export const sessionController = { login, loginPage, logout }
+export const sessionController = { login, loginPage, logout, signup, signupPage, errorSignupPage, errorLoginPage }
