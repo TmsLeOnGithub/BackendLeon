@@ -11,6 +11,7 @@ import { MensajesDao, ProductDao } from './dao/index.js';
 import fakerRouter from './routes/fakerRouter.js';
 import mensajesSchema from './normalize/mensajes.schema.js';
 
+
 //import cors from 'cors';//////////////////////
 import { PassportAuth } from './middlewares/index.js'; //////////
 
@@ -31,13 +32,20 @@ import passport from 'passport';
 import checkAuthentication from './middlewares/utilDeMiddlewares.js';
 // #endregion
 
+import yargs from 'yargs';
+import randomRouter from './routes/randomRouter.js';
+
+const yargConfig = yargs(process.argv.slice(2));
+
+const args = yargConfig.default({port: 8080}).argv;
+
 const normalize = normalizr.normalize;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
 
-PassportAuth.init(); /////////////////////////////
+PassportAuth.init(); 
 
 const httServer = new HttpServer(app)
 const io = new IOServer(httServer)
@@ -66,15 +74,16 @@ app.use("/session", sessionRouter);
 //#endregion
 
 app.use(express.static('./public'))
+app.use ("/api/randoms",randomRouter)
 app.use("/api/carrito", authApiMiddleware, carritoRouter);
 app.use('/api/productos', authApiMiddleware, productosRouter)
 app.use("/api/productos-test", authApiMiddleware, fakerRouter);
 app.get('/', checkAuthentication, (req, res) => {
-    res.sendFile('index.html', { root: __dirname })
+res.sendFile('index.html', { root: __dirname })
 
 })
 
-httServer.listen(config.SERVER.PORT, () => console.log('Server ON  :) PORT ' + config.SERVER.PORT))
+httServer.listen(args.port, () => console.log('Server ON  :) PORT ' + args.port))
 
 io.on('connection', socket => {
   enviarTodosLosProductos(socket)

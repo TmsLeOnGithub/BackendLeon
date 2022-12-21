@@ -13,6 +13,7 @@ sessionRouter.post('/login', passport.authenticate('login', {failureRedirect: '/
 sessionRouter.get('/login', sessionController.loginPage);
 sessionRouter.get('/signup', sessionController.signupPage);
 sessionRouter.get('/faillogin', sessionController.errorLoginPage);
+sessionRouter.get('/info', sessionController.infoPage);
 
 
 

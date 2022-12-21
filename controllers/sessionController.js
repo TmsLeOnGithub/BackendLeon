@@ -1,7 +1,5 @@
 import { UsersDao } from "../dao/index.js";
 
-const allowedUsers = [{ username: 'tomas', password: 'leon' }]
-
 const signup = async (req, res) => {
 
  try {
@@ -70,6 +68,18 @@ const errorLoginPage = (req, res) => {
 	res.render('faillogin.handlebars')
 }
 
-const getUser = username => allowedUsers.find(user => user.username === username);
+const infoPage = (req, res) => {///////////////////////////
+const processData = {
+  cwd: process.cwd(),
+  pid: process.pid,
+  version: process.version,
+  title: process.title,
+  platform: process.platform,
+  memoryUsage: process.memoryUsage.rss()
+}
 
-export const sessionController = { login, loginPage, logout, signup, signupPage, errorSignupPage, errorLoginPage }
+	res.render('info.handlebars', { processData })///////////////////////////////////////////
+}
+
+
+export const sessionController = { login, loginPage, logout, signup, signupPage, errorSignupPage, errorLoginPage, infoPage}

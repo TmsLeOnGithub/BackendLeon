@@ -1,0 +1,6 @@
+SESSION ROUTER.JS  (LINEA 17)  agregar ruta /info
+
+sessionController.JS  (LINEA 73 Y 74) ahi renderizaria lo que pide la consigna? (argumentos de entrada/path/carpeta,etc)
+a la vista sensilla se la podria hacer con handlebars?
+
+CONFIG--> INDEX.JS   lineas 8 a 16 (prueba, habria que reemplazar algo ahi)

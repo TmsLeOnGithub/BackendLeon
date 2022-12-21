@@ -3,6 +3,7 @@ const socket = io.connect();
 const productFormContainer = document.getElementById('product-form');
 const messageFormContainer = document.getElementById('message-form');
 const welcomeContainer = document.getElementById('welcome-container');
+const randonView = document.getElementById('random-container')
 
 const productListContainer = document.getElementById('product-list');
 const chatContainer = document.getElementById('chat');
@@ -29,9 +30,14 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 // });
 
 
-fetch('http://localhost:3000/api/productos-test').then(response => response.json()).then(response => {
+fetch('http://localhost:8080/api/productos-test').then(response => response.json()).then(response => {
   renderizarProductList(response);  
 })
+
+fetch('http://localhost:8080/api/randoms').then(response => response.json()).then(response => {
+  renderizarRandomView(response);  
+})
+
 
 
 socket.on ('messages',  (data) => {renderizarChat(data)});
@@ -69,6 +75,17 @@ const renderizarWelcomeContainer = async () => {
     const username = params?.username;
     const html = compiledTemplate({username})
     welcomeContainer.innerHTML = html
+};
+
+const renderizarRandomView = async (randomObject) => {
+        const respuesta = await fetch('/views/view/random.handlebars');
+        const template = await respuesta.text()
+        const compiledTemplate = Handlebars.compile(template);
+
+        const value = JSON.stringify(randomObject);
+        const html = compiledTemplate({randomObject: value})
+        randonView.innerHTML = html
+    
 };
 
 const renderizarFormProductos = async () => {
