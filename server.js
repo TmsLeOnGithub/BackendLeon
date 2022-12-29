@@ -11,6 +11,12 @@ import { MensajesDao, ProductDao } from './dao/index.js';
 import fakerRouter from './routes/fakerRouter.js';
 import mensajesSchema from './normalize/mensajes.schema.js';
 
+// Cluster / Fork configuration
+
+import cluster from 'cluster';
+import os from 'os';
+const numCPUs = os.cpus().length;
+
 
 //import cors from 'cors';//////////////////////
 import { PassportAuth } from './middlewares/index.js'; //////////
@@ -37,7 +43,7 @@ import randomRouter from './routes/randomRouter.js';
 
 const yargConfig = yargs(process.argv.slice(2));
 
-const args = yargConfig.default({port: 8080}).argv;
+const args = yargConfig.default({port: 8080, mode: 'FORK'}).argv;
 
 const normalize = normalizr.normalize;
 const __filename = fileURLToPath(import.meta.url);
@@ -83,7 +89,18 @@ res.sendFile('index.html', { root: __dirname })
 
 })
 
-httServer.listen(args.port, () => console.log('Server ON  :) PORT ' + args.port))
+if(args.mode === 'FORK'){
+  httServer.listen(args.port, () => console.log('Server ON  :) PORT ' + args.port + ' PID ' + process.pid))  
+}else if(args.mode === 'CLUSTER'){
+ if(cluster.isPrimary) {
+  for (let index = 0; index < numCPUs; index++) {
+    cluster.fork();
+  }
+ } else {
+  httServer.listen(args.port, () => console.log('Server ON  :) PORT ' + args.port + ' PID ' + process.pid))  
+ } 
+}
+
 
 io.on('connection', socket => {
   enviarTodosLosProductos(socket)

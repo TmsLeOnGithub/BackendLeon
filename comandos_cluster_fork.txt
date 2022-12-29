@@ -1,0 +1,25 @@
+Servidor en modo CLUSTER
+
+nodemon .\server.js --mode CLUSTER
+
+Servidor en modo FORK
+
+nodemon .\server.js --mode FORK
+
+Servidor con PM2
+
+MODO FORK
+
+pm2 start .\server.js --name="Server1" --watch -- 8081
+
+pm2 delete Server1
+
+MODO CLUSTER
+
+pm2 start .\server.js --name="Server2" --watch -i -max -- 8082
+
+LISTADO DE PROCESOS POR PM2
+
+pm2 list
+
+pm2 delete Server2

@@ -1,4 +1,6 @@
 import { UsersDao } from "../dao/index.js";
+import os from 'os';
+const numCPUs = os.cpus().length;
 
 const signup = async (req, res) => {
 
@@ -75,6 +77,7 @@ const processData = {
   version: process.version,
   title: process.title,
   platform: process.platform,
+  numCPUs: numCPUs,
   memoryUsage: process.memoryUsage.rss()
 }
 

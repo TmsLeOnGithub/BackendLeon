@@ -1,0 +1,42 @@
+2022/12/26 15:11:08 [notice] 10352#16560: signal process started
+2022/12/26 15:12:24 [error] 7608#3832: *1 CreateFile() "D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/html/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8085", referrer: "http://localhost:8085/"
+2022/12/26 18:11:34 [emerg] 9704#2240: unexpected "}" in D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/conf/nginx.conf:51
+2022/12/26 18:12:01 [emerg] 3576#2284: unexpected "}" in D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/conf/nginx.conf:51
+2022/12/26 18:13:11 [emerg] 17316#3024: unknown directive "proxy_pass:http//127.0.0.1:8082" in D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/conf/nginx.conf:50
+2022/12/26 18:15:46 [emerg] 12300#14196: invalid URL prefix in D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/conf/nginx.conf:50
+2022/12/26 18:17:30 [emerg] 2612#14332: invalid URL prefix in D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/conf/nginx.conf:50
+2022/12/26 18:29:28 [error] 7608#3832: *7 CreateFile() "D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/html/info" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /info HTTP/1.1", host: "localhost:8085"
+2022/12/26 18:31:22 [emerg] 14188#15924: invalid URL prefix in D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/conf/nginx.conf:50
+2022/12/26 18:33:14 [emerg] 10564#10576: invalid URL prefix in D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/conf/nginx.conf:50
+2022/12/26 18:33:56 [notice] 17288#7420: signal process started
+2022/12/26 18:34:58 [emerg] 18948#18952: unexpected "}" in D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/conf/nginx.conf:50
+2022/12/26 18:35:09 [notice] 19256#13500: signal process started
+2022/12/26 18:35:19 [notice] 16788#4644: signal process started
+2022/12/26 18:35:42 [notice] 13192#9864: signal process started
+2022/12/26 18:35:48 [error] 18252#7244: *10 CreateFile() "D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/html/session/info" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /session/info HTTP/1.1", host: "localhost:8085"
+2022/12/26 18:36:04 [error] 18252#7244: *10 CreateFile() "D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/html/session/info" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /session/info HTTP/1.1", host: "localhost:8085"
+2022/12/26 18:36:36 [notice] 2232#10420: signal process started
+2022/12/26 18:36:42 [error] 18252#7244: *11 CreateFile() "D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/html/session/info" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /session/info HTTP/1.1", host: "localhost:8085"
+2022/12/26 18:36:45 [error] 18252#7244: *12 CreateFile() "D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/html/session/info" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /session/info HTTP/1.1", host: "localhost:8085"
+2022/12/26 18:36:45 [error] 1068#7848: *14 CreateFile() "D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/html/index.js" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /index.js HTTP/1.1", host: "localhost:8085", referrer: "http://localhost:8085/session/info"
+2022/12/26 18:36:47 [error] 1068#7848: *14 CreateFile() "D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/html/index.js" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /index.js HTTP/1.1", host: "localhost:8085", referrer: "http://localhost:8085/session/info"
+2022/12/26 18:36:48 [error] 1068#7848: *14 CreateFile() "D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/html/index.js" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /index.js HTTP/1.1", host: "localhost:8085", referrer: "http://localhost:8085/session/info"
+2022/12/26 18:36:57 [error] 1068#7848: *14 CreateFile() "D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/html/index.js" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /index.js HTTP/1.1", host: "localhost:8085", referrer: "http://localhost:8085/session/info"
+2022/12/26 18:37:11 [error] 1068#7848: *14 CreateFile() "D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/html/index.js" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /index.js HTTP/1.1", host: "localhost:8085", referrer: "http://localhost:8085/session/info"
+2022/12/26 18:41:17 [notice] 18360#16168: signal process started
+2022/12/26 18:41:23 [error] 15812#6996: *21 CreateFile() "D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/html/session/info" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /session/info HTTP/1.1", host: "localhost:8085"
+2022/12/26 19:19:38 [emerg] 10768#3960: unexpected "}" in D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/conf/nginx.conf:42
+2022/12/26 19:20:14 [emerg] 9512#15000: unexpected "}" in D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/conf/nginx.conf:42
+2022/12/26 19:20:33 [emerg] 1524#2408: directive "server" is not terminated by ";" in D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/conf/nginx.conf:44
+2022/12/26 19:20:55 [emerg] 12488#15320: invalid parameter "server" in D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/conf/nginx.conf:44
+2022/12/26 19:22:46 [emerg] 13852#11904: unexpected "}" in D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/conf/nginx.conf:42
+2022/12/26 19:25:58 [emerg] 14204#14896: unexpected "}" in D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/conf/nginx.conf:42
+2022/12/26 19:28:35 [notice] 16328#14784: signal process started
+2022/12/26 19:35:58 [notice] 19388#3528: signal process started
+2022/12/26 19:59:36 [notice] 8664#6488: signal process started
+2022/12/26 20:11:11 [notice] 16432#10620: signal process started
+2022/12/26 20:11:11 [error] 16432#10620: CreateFile() "D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2022/12/26 20:11:16 [notice] 6396#16188: signal process started
+2022/12/26 20:11:16 [error] 6396#16188: CreateFile() "D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2022/12/26 20:11:22 [notice] 13008#19292: signal process started
+2022/12/26 20:11:22 [error] 13008#19292: CreateFile() "D:\Escritorio\PROGRAMACION\CURSO BACKEND\CLASE 1 BACKEND\NGNEX clase/logs/nginx.pid" failed (2: The system cannot find the file specified)

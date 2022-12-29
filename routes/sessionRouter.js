@@ -15,6 +15,6 @@ sessionRouter.get('/signup', sessionController.signupPage);
 sessionRouter.get('/faillogin', sessionController.errorLoginPage);
 sessionRouter.get('/info', sessionController.infoPage);
 
-
+ 
 
 export default sessionRouter

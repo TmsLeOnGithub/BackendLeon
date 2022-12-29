@@ -1,6 +1,7 @@
-SESSION ROUTER.JS  (LINEA 17)  agregar ruta /info
+nginx.conf   en la linea 49 puse la ruta /info aunque en la clase dio el ejemplo con /datos (01:04)
+nginx.conf  linea 37 a 40, le puse  weight=2 para que al tener el mismo peso, se reparta equitativamente
+al mismo puerto (quiza sea en vano, y bastaba con no poner peso)  (zoom 01:13
 
-sessionController.JS  (LINEA 73 Y 74) ahi renderizaria lo que pide la consigna? (argumentos de entrada/path/carpeta,etc)
-a la vista sensilla se la podria hacer con handlebars?
 
-CONFIG--> INDEX.JS   lineas 8 a 16 (prueba, habria que reemplazar algo ahi)
+en pm2 es -watch, o --watch  para permitir el metodo de escucha y que la actualizacion del codigo del 
+servidor se vea reflejado inmediatamente
