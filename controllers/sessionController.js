@@ -81,7 +81,9 @@ const processData = {
   memoryUsage: process.memoryUsage.rss()
 }
 
-	res.render('info.handlebars', { processData })///////////////////////////////////////////
+ // console.log(processData);
+
+ res.render('info.handlebars', { processData })///////////////////////////////////////////
 }
 
 

@@ -1,5 +1,6 @@
 
 
+import compression from 'compression';
 import { Router } from 'express';
 import passport from 'passport';
 import { sessionController } from '../controllers/sessionController.js';
@@ -13,7 +14,7 @@ sessionRouter.post('/login', passport.authenticate('login', {failureRedirect: '/
 sessionRouter.get('/login', sessionController.loginPage);
 sessionRouter.get('/signup', sessionController.signupPage);
 sessionRouter.get('/faillogin', sessionController.errorLoginPage);
-sessionRouter.get('/info', sessionController.infoPage);
+sessionRouter.get('/info', compression(), sessionController.infoPage);
 
  
 

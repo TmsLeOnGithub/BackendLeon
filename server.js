@@ -10,6 +10,9 @@ import { config } from './config/index.js';
 import { MensajesDao, ProductDao } from './dao/index.js';
 import fakerRouter from './routes/fakerRouter.js';
 import mensajesSchema from './normalize/mensajes.schema.js';
+//DESAFIO CLASE 32
+import compression from "compression";
+import logger from './errores/logger.js';
 
 // Cluster / Fork configuration
 
@@ -18,8 +21,7 @@ import os from 'os';
 const numCPUs = os.cpus().length;
 
 
-//import cors from 'cors';//////////////////////
-import { PassportAuth } from './middlewares/index.js'; //////////
+import { PassportAuth } from './middlewares/index.js'; 
 
 
 //#region handlebars engine
@@ -51,6 +53,10 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
+//DESAFIO CLASE 32
+app.use(compression())
+//////
+
 PassportAuth.init(); 
 
 const httServer = new HttpServer(app)
@@ -75,19 +81,25 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use("/session", sessionRouter);
-
 //#endregion
 
 app.use(express.static('./public'))
-app.use ("/api/randoms",randomRouter)
-app.use("/api/carrito", authApiMiddleware, carritoRouter);
-app.use('/api/productos', authApiMiddleware, productosRouter)
-app.use("/api/productos-test", authApiMiddleware, fakerRouter);
-app.get('/', checkAuthentication, (req, res) => {
-res.sendFile('index.html', { root: __dirname })
 
-})
+const loggerMiddleware = (req, res, next) => {
+  const { url, baseUrl, method } = req
+  logger.info(`Ruta ${method} ${baseUrl}${url} llamada`)
+  return next();
+}
+
+app.use("/session", loggerMiddleware, sessionRouter);
+app.use ("/api/randoms",loggerMiddleware, randomRouter)
+app.use("/api/carrito", loggerMiddleware, authApiMiddleware, carritoRouter);
+app.use('/api/productos',loggerMiddleware, authApiMiddleware, productosRouter)
+app.use("/api/productos-test", loggerMiddleware, authApiMiddleware, fakerRouter);
+app.get('/', checkAuthentication, (req, res) => {
+res.sendFile('index.html', { root: __dirname })})
+
+
 
 if(args.mode === 'FORK'){
   httServer.listen(args.port, () => console.log('Server ON  :) PORT ' + args.port + ' PID ' + process.pid))  
@@ -100,6 +112,8 @@ if(args.mode === 'FORK'){
   httServer.listen(args.port, () => console.log('Server ON  :) PORT ' + args.port + ' PID ' + process.pid))  
  } 
 }
+
+httServer.on('error', error => logger.error(`Error en servidor: ${error}`))
 
 
 io.on('connection', socket => {
@@ -149,3 +163,9 @@ const enviarTodosLosMensajes = async (socket) => {
     io.sockets.emit("messages", normalize(chat, mensajesSchema.chat))
   })
 }
+
+app.get('*', (req, res) => {
+  const { url, method } = req
+  logger.warn(`Ruta ${method} ${url} no implementada`)
+  res.send(`Ruta ${method} ${url} no está implementada`)
+})
