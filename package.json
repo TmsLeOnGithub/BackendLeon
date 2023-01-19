@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "0x server.js",
+    "start": "node server.js",
     "test": "node autocannon_test.js"
   },
   "repository": {
