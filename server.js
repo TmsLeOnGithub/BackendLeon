@@ -14,6 +14,10 @@ import mensajesSchema from './normalize/mensajes.schema.js';
 import compression from "compression";
 import logger from './errores/logger.js';
 
+//segunda entrega final
+import { createTransport } from 'nodemailer';
+
+
 // Cluster / Fork configuration
 
 import cluster from 'cluster';
@@ -64,6 +68,30 @@ const io = new IOServer(httServer)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //app.use("/api/auth",AuthRouter)/////////////////////////////////fijarse si va en este archivo
+
+//segunda entrega final nodemaider/////////
+
+ const TEST_MAIL= 'christa14@ethereal.email'
+
+const transporter = nodemailer.createTransport({ 
+  host: 'smtp.ethereal.email',
+  port: 587,
+  auth: {
+      user: TEST_MAIL,
+      pass: 'NrUatbDKpySTzgUMjY'
+  }
+});
+
+
+try {
+  const info = await transporter.sendMail (mailOptions)
+  console.log(info)
+} catch (error) {
+  console.log(err)
+}
+
+////////////////////// 
+
 
 //#region HANDLEBAR AS ENGINE
 app.engine('handlebars', engine());
@@ -169,3 +197,5 @@ app.get('*', (req, res) => {
   logger.warn(`Ruta ${method} ${url} no implementada`)
   res.send(`Ruta ${method} ${url} no está implementada`)
 })
+
+export default TEST_MAIL

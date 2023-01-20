@@ -5,3 +5,13 @@ al mismo puerto (quiza sea en vano, y bastaba con no poner peso)  (zoom 01:13
 
 en pm2 es -watch, o --watch  para permitir el metodo de escucha y que la actualizacion del codigo del 
 servidor se vea reflejado inmediatamente
+
+
+
+ENTREGA FINAL:
+
+SERVER LINEA 17 Y 74  (tuve que usar export default al final del archivo porque EXPORT CONST... no me funcionaba)
+NODEMAILER.JS (CARPETA DESAFIO FINAL)
+
+
+en server linea 76 nodemailer no está definida
