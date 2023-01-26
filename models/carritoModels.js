@@ -1,16 +1,18 @@
 import { Schema } from "mongoose";
+import { ProductModel } from "./productModel.js";
 
-const CarritoCollection = "carrito";
+const CarritoCollection = "carritos";
 
 const CarritoSchema = new Schema(
   {
     timestamp: { type: String, required: true, max: 100 },
-    productos: [{ type: Schema.Types.ObjectId, ref: "productos", }],
+    productos: [ProductModel.ProductSchema],
   },
   {
     virtuals: true,
   }
 );
+
 
 CarritoSchema.set("toJSON", {
   transform: (_, response) => {
@@ -20,5 +22,7 @@ CarritoSchema.set("toJSON", {
     return response;
   },
 });
+
+
 
 export const CarritoModel = { CarritoCollection, CarritoSchema };

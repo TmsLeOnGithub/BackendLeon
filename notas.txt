@@ -1,17 +1,10 @@
-nginx.conf   en la linea 49 puse la ruta /info aunque en la clase dio el ejemplo con /datos (01:04)
-nginx.conf  linea 37 a 40, le puse  weight=2 para que al tener el mismo peso, se reparta equitativamente
-al mismo puerto (quiza sea en vano, y bastaba con no poner peso)  (zoom 01:13
-
-
-en pm2 es -watch, o --watch  para permitir el metodo de escucha y que la actualizacion del codigo del 
-servidor se vea reflejado inmediatamente
-
-
-
-ENTREGA FINAL:
+2da ENTREGA FINAL:
 
 SERVER LINEA 17 Y 74  (tuve que usar export default al final del archivo porque EXPORT CONST... no me funcionaba)
 NODEMAILER.JS (CARPETA DESAFIO FINAL)
 
+el Sendmailer, envia el mail al registrarse un nuevo usuario pero por una cuestion de mi cuenta
+de mail, no me llega a bandeja de entrada de mi gmail (pero si se ve en bandeja de enviados a la cuenta de Ethereal)
 
-en server linea 76 nodemailer no está definida
+todo lo de carrito está en la carpeta VIEW. El resto de la consigna en la carpeta y segunda entrega
+

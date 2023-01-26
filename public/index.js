@@ -4,9 +4,10 @@ const productFormContainer = document.getElementById('product-form');
 const messageFormContainer = document.getElementById('message-form');
 const welcomeContainer = document.getElementById('welcome-container');
 const randonView = document.getElementById('random-container')
-
+const carritoContainer = document.getElementById('carrito-container')
 const productListContainer = document.getElementById('product-list');
 const chatContainer = document.getElementById('chat');
+let idCarrito = null;
 
 // Normalizr schema
 
@@ -14,7 +15,7 @@ const usuarios = new normalizr.schema.Entity('usuarios');
 
 const mensajes = new normalizr.schema.Entity('mensajes', {
     autor: usuarios
-},  {idAttribute: '_id'});
+}, { idAttribute: '_id' });
 
 const chatSchema = new normalizr.schema.Entity('chat', {
     mensajes: [mensajes]
@@ -25,35 +26,60 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 });
 
 
-// socket.on ('all-products', (data) =>{
-//     renderizarProductList(data);
-// });
+socket.on('all-products', (data) => {
+    renderizarProductList(data);
+});
 
 
-fetch('http://localhost:8080/api/productos-test').then(response => response.json()).then(response => {
-  renderizarProductList(response);  
-})
+// fetch('http://localhost:8080/api/productos-test').then(response => response.json()).then(response => {
+//   renderizarProductList(response);  
+// })
 
-fetch('http://localhost:8080/api/randoms').then(response => response.json()).then(response => {
-  renderizarRandomView(response);  
-})
+// fetch('http://localhost:8080/api/randoms').then(response => response.json()).then(response => {
+//     renderizarRandomView(response);
+// })
 
 
 
-socket.on ('messages',  (data) => {renderizarChat(data)});
+// socket.on('messages', (data) => { renderizarChat(data) });
+
+const agregarAlCarrito = async ({idProducto}) => {
+    fetch(`http://localhost:8080/api/carrito/${idCarrito}/productos`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({idProducto})
+    }).then(() => {
+        renderizarCarrito();
+        alert('producto añadido al carrito correctamente')
+    })
+};
+
+const crearCarrito = async () => {
+    fetch('http://localhost:8080/api/carrito', {
+        method: 'POST'
+    })
+    .then(response => response.json())
+    .then((carrito) => {
+       idCarrito = carrito?.id;
+       renderizarCarrito();
+    })
+}
 
 const agregarProducto = () => {
-    const producto= {
-            titulo: document.getElementById('titulo').value,
-        precio: document.getElementById (`precio`).value,
-        thumbnail: document.getElementById (`thumbnail`).value
+    const producto = {
+        titulo: document.getElementById('titulo').value,
+        precio: document.getElementById(`precio`).value,
+        thumbnail: document.getElementById(`thumbnail`).value
     };
-    socket.emit (`new-product`, producto);
+    socket.emit(`new-product`, producto);
     return false;
-} 
+}
 
 const agregarMensaje = () => {
-    const mensaje= {
+    const mensaje = {
         autor: {
             id: document.getElementById('id').value,
             nombre: document.getElementById('nombre').value,
@@ -64,7 +90,7 @@ const agregarMensaje = () => {
         },
         text: document.getElementById(`text`).value
     };
-    socket.emit (`new-message`, mensaje);
+    socket.emit(`new-message`, mensaje);
     return false;
 }
 
@@ -73,19 +99,28 @@ const renderizarWelcomeContainer = async () => {
     const template = await respuesta.text()
     const compiledTemplate = Handlebars.compile(template);
     const username = params?.username;
-    const html = compiledTemplate({username})
+    const html = compiledTemplate({ username })
     welcomeContainer.innerHTML = html
 };
 
-const renderizarRandomView = async (randomObject) => {
-        const respuesta = await fetch('/views/view/random.handlebars');
-        const template = await respuesta.text()
-        const compiledTemplate = Handlebars.compile(template);
+const renderizarCarrito = async () => {
+    const productos = await fetch(`http://localhost:8080/api/carrito/${idCarrito}/productos`).then(response => response.json());
+    const respuesta = await fetch('/views/view/carrito.handlebars');
+    const template = await respuesta.text()
+    const compiledTemplate = Handlebars.compile(template);
+    const html = compiledTemplate({ productos })
+    carritoContainer.innerHTML = html 
+}
 
-        const value = JSON.stringify(randomObject);
-        const html = compiledTemplate({randomObject: value})
-        randonView.innerHTML = html
-    
+const renderizarRandomView = async (randomObject) => {
+    const respuesta = await fetch('/views/view/random.handlebars');
+    const template = await respuesta.text()
+    const compiledTemplate = Handlebars.compile(template);
+
+    const value = JSON.stringify(randomObject);
+    const html = compiledTemplate({ randomObject: value })
+    randonView.innerHTML = html
+
 };
 
 const renderizarFormProductos = async () => {
@@ -114,9 +149,9 @@ const renderizarProductList = async (productos) => {
     // compile the template
     const compiledTemplate = Handlebars.compile(template);
     // execute the compiled template and print the output to the console
-    const html = compiledTemplate({productos})
+    const html = compiledTemplate({ productos })
     productListContainer.innerHTML = html
-} 
+}
 
 const renderizarChat = async (chat) => {
     console.log('Chat normalizado');
@@ -128,7 +163,7 @@ const renderizarChat = async (chat) => {
     const denormalizadoLength = JSON.stringify(chatDenormalizado).length;
 
     const porcentaje = denormalizadoLength / normalizadoLength;
-    const porcentajeText= `Porcentaje de compresion ${Math.round(porcentaje * 100)}%`
+    const porcentajeText = `Porcentaje de compresion ${Math.round(porcentaje * 100)}%`
     console.log(porcentajeText)
     document.getElementById('porcentaje').textContent = porcentajeText;
 
@@ -137,13 +172,13 @@ const renderizarChat = async (chat) => {
     // compile the template
     const compiledTemplate = Handlebars.compile(template);
     // execute the compiled template and print the output to the console
-    const html = compiledTemplate({mensajes: chatDenormalizado?.mensajes})
+    const html = compiledTemplate({ mensajes: chatDenormalizado?.mensajes })
     chatContainer.innerHTML = html
-} 
+}
 
-renderizarFormProductos();
-renderizarFormMensaje();
+// renderizarFormProductos();
+// renderizarFormMensaje();
 renderizarWelcomeContainer();
 
-
+crearCarrito();
 
