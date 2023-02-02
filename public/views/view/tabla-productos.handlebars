@@ -1,26 +1,12 @@
-<table class="table table-dark">
-    <thead>
-        <tr class="text-warning">
-            <th>Titulo</th>
-            <th>Precio</th>
-            <th>thumbnail</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#if productos.length}}
-        {{#each productos}}
-        <tr>
-            <td>
-                {{this.titulo}}
-            </td>
-            <td>
-                {{this.precio}}
-            </td>
-            <td>
-                {{this.thumbnail}}
-            </td>
-        </tr>
-        {{/each}}
-        {{/if}}
-    </tbody>
-</table>
+{{#if productos.length}}
+{{#each productos}}
+    <div class="card" style="width: 18rem;">
+        <img src="{{thumbnail}}" class="card-img-top" alt="imagen producto">
+        <div class="card-body">
+            <h5 class="card-title">{{this.titulo}}</h5>
+            <p class="card-text">$ {{this.precio}}</p>
+            <button id="{{this.id}}" onclick="return agregarAlCarrito({idProducto: this.id})" class="btn btn-primary">Agregar al carrito</a>
+        </div>
+    </div>
+{{/each}}
+{{/if}}

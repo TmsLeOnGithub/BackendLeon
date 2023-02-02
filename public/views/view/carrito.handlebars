@@ -1,0 +1,16 @@
+
+<h4>Carrito</h4>
+{{#if productos.length}}
+<ul class="list-group">
+{{#each productos}}
+  <li class="list-group-item"><strong>{{this.titulo}}</strong> - ${{this.precio}}</li>
+{{/each}}
+</ul>
+
+<button class="m-2 btn btn-secondary">Enviar pedido</button>
+{{/if}}
+
+
+
+
+

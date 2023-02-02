@@ -65,6 +65,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //app.use("/api/auth",AuthRouter)/////////////////////////////////fijarse si va en este archivo
 
+
 //#region HANDLEBAR AS ENGINE
 app.engine('handlebars', engine());
 app.set('views', './views');
@@ -138,7 +139,7 @@ const enviarTodosLosProductos = async (socket) => {
 }
 
 const guardarProducto = async (producto) => {
-  await contenedor.save(producto)
+  await ProductDao.save(producto)
   const productos = await ProductDao.getAll()
   io.sockets.emit("all-products", productos)
 }
