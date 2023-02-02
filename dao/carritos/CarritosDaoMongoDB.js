@@ -1,5 +1,6 @@
-import { ContenedorMongoDB } from '../../containers/ContenedorMongoDB.js'
-import { CarritoModel } from '../../models/carritoModels.js'
+import { CarritoModel } from '../../dao/schemas/carritoModels.js';
+import { ContenedorMongoDB } from '../containers/ContenedorMongoDB.js';
+
 
 export class CarritosDaoMongoDB extends ContenedorMongoDB {
     constructor() {

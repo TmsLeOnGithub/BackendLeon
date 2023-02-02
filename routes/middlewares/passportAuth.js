@@ -1,6 +1,8 @@
-import passport from "passport";
-import { Strategy as LocalStrategy } from "passport-local";
-import { UsersDao } from "../dao/index.js";
+import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
+
+import { UsersDao } from '../../dao/index.js';
+
 
 
 const init = () => {
@@ -27,7 +29,6 @@ const init = () => {
 
           const user = await UsersDao.getOne({ email: email });
 
-          // no da el tiempo, pero bcryipt o similar
           if (!user || user.password !== password) return done(null, false);
 
           const userResponse = {
@@ -48,6 +49,3 @@ const init = () => {
 export const PassportAuth = {
   init,
 };
-
-
-//32 minutos del zoom

@@ -11,8 +11,6 @@ export class ContenedorFileSystem {
   async save(item) {
     try {
       const items = await this.getAll();
-      console.log("items: ", items);
-      console.log("item a guardar: ", item);
       item.id = items?.length === 0 ? 1 : items[items.length - 1].id + 1;
       item.timestamp = Date.now();
 
@@ -29,7 +27,7 @@ export class ContenedorFileSystem {
       const items = await this.getAll();
       const index = items?.findIndex(i => i.id === id);
 
-      if(index === -1) return null;
+      if (index === -1) return null;
 
       const item = items[index];
 
@@ -57,7 +55,6 @@ export class ContenedorFileSystem {
   async getAll() {
     try {
 
-      console.log(this.nombreArchivo);
       const file = await fs.promises.readFile(this.nombreArchivo, 'utf-8');
       if (file) {
         return JSON.parse(file);

@@ -1,5 +1,5 @@
-import { ContenedorMongoDB } from "../../containers/ContenedorMongoDB.js";
-import { UserModel } from '../../models/usersModel.js'
+import { UserModel } from '../../dao/schemas/usersModel.js'
+import { ContenedorMongoDB } from '../containers/ContenedorMongoDB.js';
 
 export class UsersDaoMongoDB extends ContenedorMongoDB {
   constructor() {

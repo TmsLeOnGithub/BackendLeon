@@ -1,5 +1,5 @@
-import {ContenedorMongoDB} from '../../containers/ContenedorMongoDB.js'
-import { ChatModel } from '../../models/chatModel.js'
+import { ChatModel } from '../../dao/schemas/chatModel.js';
+import { ContenedorMongoDB } from '../containers/ContenedorMongoDB.js';
 
 export class MensajesDaoMongoDB extends ContenedorMongoDB {
     constructor(){

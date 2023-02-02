@@ -1,25 +1,24 @@
-import express from "express";
-import { esAdministrador } from "../consts/administrador.js";
-import { CartDao, ProductDao } from "../dao/index.js";
-import {Carrito } from '../models/carrito.js';
+import express from 'express';
+
+import { CartDao, ProductDao } from '../dao/index.js';
+import { Carrito } from '../negocio/models/carrito.js';
 
 const { Router } = express;
 export const carritoRouter = Router();
 
 carritoRouter.post('/', (req, res) => {
     const carrito = new Carrito();
-    CartDao.save(carrito).then(({id}) => {
-        console.log('llego el carrito');
-        res.status(200).send({id});
+    CartDao.save(carrito).then(({ id }) => {
+        res.status(200).send({ id });
         res.end();
     })
 })
 
 carritoRouter.delete('/:id', (req, res) => {
-    CartDao.deleteById (req.params?.id).then(() => {
-    res.status(200).send();
-    res.end();
-})
+    CartDao.deleteById(req.params?.id).then(() => {
+        res.status(200).send();
+        res.end();
+    })
 });
 
 carritoRouter.get('/:id/productos', (req, res) => {
@@ -30,7 +29,7 @@ carritoRouter.get('/:id/productos', (req, res) => {
 })
 
 
-carritoRouter.post('/:id/productos', async(req, res) => {
+carritoRouter.post('/:id/productos', async (req, res) => {
 
     const carrito = await CartDao.getById(req.params?.id);
     const producto = await ProductDao.getById(req.body?.idProducto);
@@ -43,20 +42,20 @@ carritoRouter.post('/:id/productos', async(req, res) => {
     })
 })
 
-carritoRouter.delete('/:id/productos/:id_prod', async(req, res) => {
-    if(!esAdministrador) {
-        res.status(403).send({error: -1 , descripcion: 'ruta no autorizada'})
+carritoRouter.delete('/:id/productos/:id_prod', async (req, res) => {
+    if (!process.env.IS_ADMIN) {
+        res.status(403).send({ error: -1, descripcion: 'ruta no autorizada' })
         res.end();
     }
 
     const carrito = await CartDao.getById(req.params?.id);
 
-    if(!carrito){
-        res.status(200).send({error: "el carrito no existe"});
+    if (!carrito) {
+        res.status(200).send({ error: "el carrito no existe" });
         res.end();
     }
 
-    const productos = carrito?.productos.filter(producto => producto.id !==  Number(req.params?.id_prod));
+    const productos = carrito?.productos.filter(producto => producto.id !== Number(req.params?.id_prod));
     carrito.productos = productos;
 
     CartDao.update(Number(req.params?.id), carrito).then(() => {
