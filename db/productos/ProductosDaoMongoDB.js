@@ -1,4 +1,4 @@
-import { ProductModel } from '../../dao/schemas/productModel.js';
+import { ProductModel } from '../../db/schemas/productModel.js';
 import { ContenedorMongoDB } from '../containers/ContenedorMongoDB.js';
 
 export class ProductosDaoMongoDB extends ContenedorMongoDB {

@@ -1,4 +1,4 @@
-import { CarritoModel } from '../../dao/schemas/carritoModels.js';
+import { CarritoModel } from '../../db/schemas/carritoModels.js';
 import { ContenedorMongoDB } from '../containers/ContenedorMongoDB.js';
 
 

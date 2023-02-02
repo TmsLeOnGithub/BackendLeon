@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { CartDao, ProductDao } from '../dao/index.js';
+import { CartDao, ProductDao } from '../db/index.js';
 import { Carrito } from '../negocio/models/carrito.js';
 
 const { Router } = express;

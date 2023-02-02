@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 
-import { UsersDao } from '../../dao/index.js';
+import { UsersDao } from '../../db/index.js';
 
 
 

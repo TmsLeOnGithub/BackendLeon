@@ -14,7 +14,7 @@ import { Server as IOServer } from 'socket.io';
 import { fileURLToPath } from 'url';
 import yargs from 'yargs';
 
-import { MensajesDao, ProductDao } from './dao/index.js';
+import { MensajesDao, ProductDao } from './db/index.js';
 import logger from './errores/logger.js';
 import mensajesSchema from './normalize/mensajes.schema.js';
 import { carritoRouter } from './routes/carritoRouter.js';

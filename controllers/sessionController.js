@@ -1,4 +1,4 @@
-import { UsersDao } from "../dao/index.js";
+import { UsersDao } from "../db/index.js";
 import os from 'os';
 import { sendMail } from "../segundaEntrega/sendMailer.js";
 const numCPUs = os.cpus().length;

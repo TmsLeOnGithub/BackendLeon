@@ -1,5 +1,5 @@
 import express from "express";
-import { ProductDao } from "../dao/index.js";
+import { ProductDao } from "../db/index.js";
 
 const { Router } = express;
 export const productosRouter = Router();

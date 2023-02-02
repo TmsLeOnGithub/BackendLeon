@@ -1,4 +1,4 @@
-import { ChatModel } from '../../dao/schemas/chatModel.js';
+import { ChatModel } from '../../db/schemas/chatModel.js';
 import { ContenedorMongoDB } from '../containers/ContenedorMongoDB.js';
 
 export class MensajesDaoMongoDB extends ContenedorMongoDB {
