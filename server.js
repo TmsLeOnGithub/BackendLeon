@@ -1,50 +1,34 @@
-import express from 'express'
-import { Server as IOServer } from 'socket.io'
+import cluster from 'cluster';
+import compression from 'compression';
+import mongoStore from 'connect-mongo';
+import cookieParser from 'cookie-parser';
+import express from 'express';
+import { engine } from 'express-handlebars';
+import session from 'express-session';
 import { Server as HttpServer } from 'http';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 import normalizr from 'normalizr';
-import { productosRouter } from './routes/productosRouter.js'
-import { carritoRouter } from './routes/carritoRouter.js';
-import { config } from './config/index.js';
-import { MensajesDao, ProductDao } from './dao/index.js';
-import fakerRouter from './routes/fakerRouter.js';
-import mensajesSchema from './normalize/mensajes.schema.js';
-//DESAFIO CLASE 32
-import compression from "compression";
+import os from 'os';
+import passport from 'passport';
+import { dirname } from 'path';
+import { Server as IOServer } from 'socket.io';
+import { fileURLToPath } from 'url';
+import yargs from 'yargs';
+
+import { MensajesDao, ProductDao } from './db/index.js';
 import logger from './errores/logger.js';
+import mensajesSchema from './normalize/mensajes.schema.js';
+import { carritoRouter } from './routes/carritoRouter.js';
+import fakerRouter from './routes/fakerRouter.js';
+import { authApiMiddleware } from './routes/middlewares/api-auth.js';
+import { PassportAuth } from './routes/middlewares/index.js';
+import checkAuthentication from './routes/middlewares/utilDeMiddlewares.js';
+import { productosRouter } from './routes/productosRouter.js';
+import randomRouter from './routes/randomRouter.js';
+import sessionRouter from './routes/sessionRouter.js';
 
 // Cluster / Fork configuration
-
-import cluster from 'cluster';
-import os from 'os';
 const numCPUs = os.cpus().length;
-
-
-import { PassportAuth } from './middlewares/index.js'; 
-
-
-//#region handlebars engine
-import {engine} from 'express-handlebars';
-
-
-// #region EXPRESS-SESSION
-import session from 'express-session';
-import cookieParser from 'cookie-parser';
-import mongoStore from 'connect-mongo';
-
-import sessionRouter from './routes/sessionRouter.js';
-import { authApiMiddleware } from './middlewares/api-auth.js';
-import { authUIMiddleware } from './middlewares/ui-auth.js';
-import passport from 'passport';
-import checkAuthentication from './middlewares/utilDeMiddlewares.js';
-// #endregion
-
-import yargs from 'yargs';
-import randomRouter from './routes/randomRouter.js';
-
 const yargConfig = yargs(process.argv.slice(2));
-
 const args = yargConfig.default({port: 8080, mode: 'FORK'}).argv;
 
 const normalize = normalizr.normalize;
@@ -53,27 +37,19 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
-//DESAFIO CLASE 32
 app.use(compression())
-//////
-
 PassportAuth.init(); 
 
 const httServer = new HttpServer(app)
 const io = new IOServer(httServer)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-//app.use("/api/auth",AuthRouter)/////////////////////////////////fijarse si va en este archivo
 
-
-//#region HANDLEBAR AS ENGINE
 app.engine('handlebars', engine());
 app.set('views', './views');
 app.set('view engine', 'handlebars');
 
-//#region EXPRESS-SESSION
 app.use(cookieParser());
-
 app.use(session({
   store: mongoStore.create({ mongoUrl: process.env.MONGO_DB_URL, ttl: 600, mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true } }), // TIEMPO DE EXPIRACION DE SESION
   secret: 'secret',
@@ -82,7 +58,6 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-//#endregion
 
 app.use(express.static('./public'))
 

@@ -1,4 +1,4 @@
-import { UsersDao } from "../dao/index.js";
+import { UsersDao } from "../db/index.js";
 import os from 'os';
 import { sendMail } from "../segundaEntrega/sendMailer.js";
 const numCPUs = os.cpus().length;
@@ -87,8 +87,6 @@ const infoPage = (req, res) => {///////////////////////////
     numCPUs: numCPUs,
     memoryUsage: process.memoryUsage.rss()
   }
-
-  // console.log(processData);
 
   res.render('info.handlebars', { processData })///////////////////////////////////////////
 }
