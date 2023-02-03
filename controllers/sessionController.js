@@ -88,8 +88,6 @@ const infoPage = (req, res) => {///////////////////////////
     memoryUsage: process.memoryUsage.rss()
   }
 
-  // console.log(processData);
-
   res.render('info.handlebars', { processData })///////////////////////////////////////////
 }
 
