@@ -1,0 +1,17 @@
+import productss from '../repository/productoRepository'
+
+const productss = new productss()
+console.log(productss.list())
+
+productss.add("run code")
+console.log(productss.list())
+
+productss.getAll("obtener todos")
+console.log(productss.list())
+
+
+productss. removeById("obtener todos")
+console.log(productss.list())
+
+productss.complete("run code")
+console.log(productss.list())
