@@ -5,6 +5,7 @@ const obtenerProductos = () => ProductDao.getAll()
 const obtenerProducto = (id) => ProductDao.getById(id)
 
 const crearProducto = (producto) => {
+    console.log('creando producto', producto);
     producto.timestamp = Date.now();
     return ProductDao.save(producto);
 }
