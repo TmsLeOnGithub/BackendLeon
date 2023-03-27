@@ -13,6 +13,7 @@ import { dirname } from 'path';
 import { Server as IOServer } from 'socket.io';
 import { fileURLToPath } from 'url';
 import yargs from 'yargs';
+import ProductosGraphQLController from './controllers/productosGraphQLController.js';
 
 import { MensajesDao, ProductDao } from './db/index.js';
 import logger from './errores/logger.js';
@@ -70,8 +71,14 @@ const loggerMiddleware = (req, res, next) => {
 app.use("/session", loggerMiddleware, sessionRouter);
 app.use ("/api/randoms",loggerMiddleware, randomRouter)
 app.use("/api/carrito", loggerMiddleware, authApiMiddleware, carritoRouter);
-app.use('/api/productos',loggerMiddleware, authApiMiddleware, productosRouter)
+app.use('/api/productos',loggerMiddleware, authApiMiddleware, productosRouter);
+
+app.use('/api/productos-graphQL',loggerMiddleware, new ProductosGraphQLController())
+
 app.use("/api/productos-test", loggerMiddleware, authApiMiddleware, fakerRouter);
+
+
+
 app.get('/', checkAuthentication, (req, res) => {
 res.sendFile('index.html', { root: __dirname })})
 

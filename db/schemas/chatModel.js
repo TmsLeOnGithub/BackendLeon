@@ -24,4 +24,4 @@ ChatSchema.set("toJSON", {
   },
 });
 
-export const ChatModel = { ChatCollection, ChatSchema,chat };
+export const ChatModel = { ChatCollection, ChatSchema };

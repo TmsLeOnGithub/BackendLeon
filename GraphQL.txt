@@ -1,0 +1,38 @@
+Graphi QL http://localhost:8080/api/productos-graphql
+
+Queries
+
+query {
+    obtenerProducto(id: "63f6ae8d271aeaa0758cc06c"){
+        titulo
+  },
+  obtenerProductos {
+    id,
+    titulo,
+    descripcion
+  }
+}
+
+Mutations
+
+mutation {
+  crearProducto(datos: {    
+      titulo: "GraphQL Test",
+      precio: 36,
+      thumbnail: "/test",
+      descripcion: "Esta es una prueba de GraphQL", 
+      stock: 25
+      }) {
+        id,
+        titulo
+  },
+  borrarProducto(id: "63f6b437131d89f4c55ac1b3") {
+    id
+  },
+  actualizarProducto(id: "63f6b450131d89f4c55ac1b5", datos: {titulo: "Prueba"}){
+    id,
+    titulo
+  },
+  
+}
+
