@@ -15,9 +15,7 @@ const obtenerCarrito = async(id) => await CartDao.getById(id);
 export const agregarProducto = async (cartId, productId) => {
     const carrito = await CartDao.getById(cartId);
     const producto = await ProductDao.getById(productId);
-
     carrito?.productos.push(producto);
-
     return CartDao.update(cartId, carrito)
 }
 

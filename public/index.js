@@ -8,6 +8,8 @@ const carritoContainer = document.getElementById('carrito-container')
 const productListContainer = document.getElementById('product-list');
 const chatContainer = document.getElementById('chat');
 let idCarrito = null;
+const urlBase = "http://localhost:8080";
+
 
 // Normalizr schema
 
@@ -26,10 +28,6 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 });
 
 
-socket.on('all-products', (data) => {
-    renderizarProductList(data);
-});
-
 
 // fetch('http://localhost:8080/api/productos-test').then(response => response.json()).then(response => {
 //   renderizarProductList(response);  
@@ -42,6 +40,13 @@ socket.on('all-products', (data) => {
 
 
 // socket.on('messages', (data) => { renderizarChat(data) });
+
+const borrarProducto = async ({idProducto}) => {
+    fetch(urlBase + '/api/productos/' + idProducto, {
+        method: 'DELETE',
+    })
+    .then(() => listarProductos())
+}
 
 const agregarAlCarrito = async ({idProducto}) => {
     fetch(`http://localhost:8080/api/carrito/${idCarrito}/productos`, {
@@ -68,14 +73,34 @@ const crearCarrito = async () => {
     })
 }
 
+const listarProductos = () => {
+    fetch(urlBase + '/api/productos', {
+        method: 'GET',
+    })
+    .then(response => response.json())
+    .then((productos) => renderizarProductList(productos))
+}
+
 const agregarProducto = () => {
     const producto = {
         titulo: document.getElementById('titulo').value,
+        descripcion: document.getElementById(`descripcion`).value,
+        stock: document.getElementById(`stock`).value,
         precio: document.getElementById(`precio`).value,
         thumbnail: document.getElementById(`thumbnail`).value
     };
-    socket.emit(`new-product`, producto);
-    return false;
+   
+
+    fetch(urlBase + '/api/productos', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(producto)
+    })
+    .then(response => response.json())
+    .then(() => listarProductos())
 }
 
 const agregarMensaje = () => {
@@ -176,9 +201,9 @@ const renderizarChat = async (chat) => {
     chatContainer.innerHTML = html
 }
 
-// renderizarFormProductos();
+renderizarFormProductos();
 // renderizarFormMensaje();
 renderizarWelcomeContainer();
-
+listarProductos();
 crearCarrito();
 

@@ -2,7 +2,7 @@ import {productosService} from '../negocio/productosService.js';
 
 
 const obtenerProductos = (req, res) => {
-    productosService.obtenerProductos.then(productos => {
+    productosService.obtenerProductos().then(productos => {
         res.send(productos);
         res.end();
     });
@@ -16,14 +16,14 @@ const obtenerProducto = (req, res) => {
 }
 
 const crearProducto = (req, res) => {
-    productosService.crearProducto.then((item) => {
+    productosService.crearProducto(req.body).then((item) => {
         res.status(200).send(item)
         res.end();
     })
 }
 
 const actualizarProducto = (req, res) => {
-    productosService.actualizarProducto.then((item) => {
+    productosService.actualizarProducto(req.params.id, req.body).then((item) => {
         res.status(200).send(item)
         res.end();
     })

@@ -26,6 +26,7 @@ import checkAuthentication from './routes/middlewares/utilDeMiddlewares.js';
 import { productosRouter } from './routes/productosRouter.js';
 import randomRouter from './routes/randomRouter.js';
 import sessionRouter from './routes/sessionRouter.js';
+import { productosService } from './negocio/productosService.js';
 
 // Cluster / Fork configuration
 const numCPUs = os.cpus().length;
@@ -100,31 +101,11 @@ httServer.on('error', error => logger.error(`Error en servidor: ${error}`))
 
 
 io.on('connection', socket => {
-  enviarTodosLosProductos(socket)
   enviarTodosLosMensajes(socket)
-
-  socket.on("new-product", producto => {
-    guardarProducto(producto)
-  })
-
   socket.on(`new-message`, mensaje => {
     guardarMensaje(mensaje)
   });
 });
-
-/* -------------------------------------------------------------------------- */
-/*                                  PRODUCTOS                                 */
-/* -------------------------------------------------------------------------- */
-const enviarTodosLosProductos = async (socket) => {
-  const productos = await ProductDao.getAll()
-  socket.emit("all-products", productos)
-}
-
-const guardarProducto = async (producto) => {
-  await ProductDao.save(producto)
-  const productos = await ProductDao.getAll()
-  io.sockets.emit("all-products", productos)
-}
 
 /* -------------------------------------------------------------------------- */
 /*                                  CHAT                                 */

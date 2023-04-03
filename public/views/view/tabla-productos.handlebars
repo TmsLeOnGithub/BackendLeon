@@ -1,12 +1,16 @@
 {{#if productos.length}}
+
+<div class="row">
 {{#each productos}}
-    <div class="card" style="width: 18rem;">
+    <div class="card col-4">
         <img src="{{thumbnail}}" class="card-img-top" alt="imagen producto">
         <div class="card-body">
             <h5 class="card-title">{{this.titulo}}</h5>
             <p class="card-text">$ {{this.precio}}</p>
             <button id="{{this.id}}" onclick="return agregarAlCarrito({idProducto: this.id})" class="btn btn-primary">Agregar al carrito</a>
+            <button id="{{this.id}}" onclick="return borrarProducto({idProducto: this.id})" class="btn btn-danger">Borrar producto</a>
         </div>
     </div>
 {{/each}}
+</div>
 {{/if}}
