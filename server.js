@@ -26,7 +26,6 @@ import checkAuthentication from './routes/middlewares/utilDeMiddlewares.js';
 import { productosRouter } from './routes/productosRouter.js';
 import randomRouter from './routes/randomRouter.js';
 import sessionRouter from './routes/sessionRouter.js';
-import { productosService } from './negocio/productosService.js';
 
 // Cluster / Fork configuration
 const numCPUs = os.cpus().length;
@@ -44,6 +43,7 @@ PassportAuth.init();
 
 const httServer = new HttpServer(app)
 const io = new IOServer(httServer)
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -81,8 +81,12 @@ app.use("/api/productos-test", loggerMiddleware, authApiMiddleware, fakerRouter)
 
 
 app.get('/', checkAuthentication, (req, res) => {
-res.sendFile('index.html', { root: __dirname })})
+  res.sendFile('index.html', { root: __dirname })}
+)
 
+app.get('/chat', checkAuthentication, (req, res) => {
+  res.sendFile('chat.html', { root: __dirname })}
+)
 
 
 if(args.mode === 'FORK'){
@@ -100,10 +104,10 @@ if(args.mode === 'FORK'){
 httServer.on('error', error => logger.error(`Error en servidor: ${error}`))
 
 
-io.on('connection', socket => {
-  enviarTodosLosMensajes(socket)
-  socket.on(`new-message`, mensaje => {
-    guardarMensaje(mensaje)
+io.on('connection', (socket) => {
+  enviarTodosLosMensajes(socket.handshake.query?.email)
+  socket.on(`new-message`, (mensaje) => {
+    guardarMensaje(mensaje, socket.handshake.query?.email)
   });
 });
 
@@ -111,20 +115,20 @@ io.on('connection', socket => {
 /*                                  CHAT                                 */
 /* -------------------------------------------------------------------------- */
 
-const guardarMensaje = async (mensaje) => {
-  MensajesDao.save(mensaje).then(() => {
-    MensajesDao.getAll().then((mensajes) => {
-      const chat = { id: 'chat', mensajes: [...mensajes?.map(mensaje => { return { _id: mensaje._id, ...mensaje._doc } })] };
-      io.sockets.emit("messages", normalize(chat, mensajesSchema.chat))
-    })
-  });
+const guardarMensaje = async (mensaje, autor) => {
+  MensajesDao.save(mensaje).then(() => enviarTodosLosMensajes(autor));
 }
 
 
-const enviarTodosLosMensajes = async (socket) => {
-  MensajesDao.getAll().then((mensajes) => {
-    const chat = { id: 'chat', mensajes: [...mensajes?.map(mensaje => { return { _id: mensaje._id, ...mensaje._doc } })] };
-    io.sockets.emit("messages", normalize(chat, mensajesSchema.chat))
+const enviarTodosLosMensajes = async (autor) => {
+  const callback = autor && autor !== 'null' ? MensajesDao.getAllByOptions({autor}) : MensajesDao.getAll(); 
+
+  callback.then((mensajes) => {
+    const chat = { id: 'chat', mensajes: [...mensajes?.map(mensaje => { return { ...mensaje._doc, _id: mensaje._id } })] };
+    const result = normalize(chat, mensajesSchema.chat)
+    console.log("estos son los mensajes", result.entities.mensajes)
+
+    io.sockets.emit("messages", result)
   })
 }
 

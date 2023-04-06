@@ -10,3 +10,4 @@ carritoRouter.delete('/:id', carritoController.borrarCarrito);
 carritoRouter.get('/:id/productos', carritoController.obtenerProductos)
 carritoRouter.post('/:id/productos', carritoController.agregarProducto)
 carritoRouter.delete('/:id/productos/:id_prod', carritoController.borrarProducto );
+carritoRouter.post('/:id/enviar', carritoController.finalizarPedido);

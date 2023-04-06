@@ -1,8 +1,6 @@
-
-
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Carrito Tomas Leon</a>
+    <a class="navbar-brand" href="/">Carrito Tomas Leon</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -12,14 +10,19 @@
         <span class="navbar-text ">
           Bienvenido {{username}}
         </span>
-        <form class="ml-2" action="/session/logout" method="POST">
-          <button type="submit" class="btn btn-secondary">
-            Logout
-          </button>
-        </form>
+
+        <div class="d-flex">
+          <a href="/chat" class="btn btn-primary">Chat</a>
+          <a id="mis-mensajes" class="btn btn-primary">Mis mensajes</a>
+          <form class="ml-2" action="/session/logout" method="POST">
+            <button type="submit" class="btn btn-secondary">
+              Logout
+            </button>
+          </form>
+        </div>
+
       </div>
 
     </div>
   </div>
 </nav>
-

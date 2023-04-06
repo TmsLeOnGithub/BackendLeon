@@ -1,4 +1,4 @@
-import {carritoService} from '../negocio/carritoService.js';
+import { carritoService } from '../negocio/carritoService.js';
 
 const crearCarrito = (req, res) => {
     carritoService.crearCarrito().then(({ id }) => {
@@ -50,5 +50,11 @@ const borrarProducto = async (req, res) => {
     })
 };
 
+const finalizarPedido = async (req, res) => {
+    await carritoService.finalizarPedido(req.params?.id, req.user);
+    res.status(200).send();
+    res.end();
+}
 
-export const carritoController = { crearCarrito, borrarCarrito, agregarProducto, obtenerProductos, borrarProducto };
+
+export const carritoController = { crearCarrito, borrarCarrito, agregarProducto, obtenerProductos, borrarProducto, finalizarPedido };
