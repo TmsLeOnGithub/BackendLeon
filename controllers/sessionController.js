@@ -22,16 +22,16 @@ const signup = async (req, res) => {
         ...existUser,
         password,
       });
-      return res.send({ success: true });
+      res.redirect('/');
     }
 
     // PASSWORD! podriamos usar bcrypt!
     mailerService.enviarEmail(email,'Nuevo registro', `<h1 style="color: blue;"> Nuevo usuario registrado. <span style="color: green;"> Email: ${email}</span></h1>`)
 
     await UsersDao.save({ email, password });
-    res.send({ success: true });
+    res.redirect('/');
   } catch (error) {
-    res.send({ success: false });
+    res.redirect('/session/signup');
   }
 };
 
