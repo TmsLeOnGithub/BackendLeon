@@ -1,6 +1,7 @@
 import { UsersDao } from "../db/index.js";
 import os from 'os';
 import { sendMail } from "../segundaEntrega/sendMailer.js";
+import { mailerService } from "../negocio/mailerService.js";
 const numCPUs = os.cpus().length;
 
 const signup = async (req, res) => {
@@ -25,20 +26,11 @@ const signup = async (req, res) => {
     }
 
     // PASSWORD! podriamos usar bcrypt!
-
-    sendMail({
-      from: 'florencio.moore73@ethereal.email', 
-      to: email, 
-      subject: 'Nuevo registro',
-      html: `<h1 style="color: blue;"> Nuevo usuario registrado. <span style="color: green;"> Email: ${email}</span></h1>`
-    })
+    mailerService.enviarEmail(email,'Nuevo registro', `<h1 style="color: blue;"> Nuevo usuario registrado. <span style="color: green;"> Email: ${email}</span></h1>`)
 
     await UsersDao.save({ email, password });
-
     res.send({ success: true });
   } catch (error) {
-    console.log(error);
-
     res.send({ success: false });
   }
 };

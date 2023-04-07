@@ -4,6 +4,13 @@ Puerto por defecto 8080
 
  node .\server.js
 
+ Usuario de prueba
+
+ Email: test@email.com
+ Pass: test
+
+ Chat:
+
  localhost:8080/chat
 
 Email de etherial para probar el correcto envio de email con pedidos:
